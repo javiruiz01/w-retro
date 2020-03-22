@@ -47,7 +47,7 @@
             scrollable-container">
             <div class="sticky bg-white -top-2">
               <div class="w-full text-gray-700 mb-2">{title}</div>
-              <div class="w-full">
+              <div class="w-full mb-2">
                 <button
                   on:click={() => toggleTextarea(idx)}
                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold
@@ -68,11 +68,11 @@
                 <textarea
                   bind:value={commentText}
                   placeholder="Write something!"
-                  class="mt-2 resize-none border border-solid border-gray-400
+                  class="block resize-none border border-solid border-gray-400
                   rounded focus:outline focuse:shadow-outline w-full py-2 px-4
                   scrollable-container" />
                 <button
-                  class="absolute top-0 right-0 mt-3 mr-1"
+                  class="absolute top-0 right-0 mt-1 mr-1"
                   on:click={() => toggleTextarea(idx)}>
                   <svg
                     fill="none"
@@ -86,7 +86,7 @@
                   </svg>
                 </button>
                 <button
-                  class="absolute bottom-0 right-0 mb-3 mr-1"
+                  class="absolute bottom-0 right-0 mb-1 mr-1"
                   on:click={() => addComment(idx)}>
                   <svg
                     fill="none"
