@@ -15,7 +15,6 @@ html {
 
 .scrollable-container {
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 }
 
 .scrollable-container:hover {

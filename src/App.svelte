@@ -4,7 +4,7 @@
 
   let commentText = '';
   let textareaToShow;
-  const cards = [
+  $: cards = [
     {
       title: 'Good',
       comments: [{ text: 'So much work!' }],
@@ -24,6 +24,16 @@
   function toggleTextarea(idx) {
     textareaToShow = textareaToShow === idx ? '' : idx;
     commentText = '';
+  }
+
+  function addColumn() {
+    cards = [
+      ...cards,
+      {
+        title: 'Something',
+        comments: [{ text: 'What would go here?' }],
+      },
+    ];
   }
 
   function addComment(idx) {
@@ -52,8 +62,8 @@
                 <div class="w-full mb-2">
                   <button
                     on:click={() => toggleTextarea(idx)}
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold
-                    py-2 px-4 rounded h-auto w-full flex justify-center">
+                    class="bg-gray-300 hover:bg-gray-400 py-2 px-4 rounded
+                    h-auto w-full flex justify-center">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -61,7 +71,7 @@
                       stroke-linejoin="round"
                       stroke-width="2"
                       viewBox="0 0 24 24"
-                      class="w-4 h-4">
+                      class="w-4 h-4 stroke-current text-gray-800">
                       <path d="M12 4v16m8-8H4" />
                     </svg>
                   </button>
@@ -122,7 +132,9 @@
       </div>
     </div>
   </div>
-  <button class="absolute bottom-0 right-0 mr-5 mb-10">
+  <button
+    on:click={() => addColumn()}
+    class="absolute bottom-0 right-0 mr-5 mb-10">
     <svg
       fill="none"
       stroke="currentColor"
