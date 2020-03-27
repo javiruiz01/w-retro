@@ -23,12 +23,15 @@ namespace wRetroApi
             Configuration = configuration;
         }
 
+        private readonly string AllowedOrigins = "AllowedOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // requires using Microsoft.Extensions.Options
+            services.AddCors(options => { options.AddPolicy(AllowedOrigins, builder => builder.WithOrigins("http://localhost:5000")); });
+
             services.Configure<RetroDatabaseSettings>(
                 Configuration.GetSection(nameof(RetroDatabaseSettings)));
 
@@ -46,6 +49,8 @@ namespace wRetroApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(AllowedOrigins);
 
             app.UseHttpsRedirection();
 

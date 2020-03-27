@@ -9,7 +9,6 @@
   let cards = [];
 
   $: getMargin = (idx) => (idx === cards.length - 1 ? 'mr-0' : 'mr-8');
-
   data.subscribe((value) => void (cards = value));
 
   function addColumn() {

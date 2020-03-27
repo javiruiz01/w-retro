@@ -3,8 +3,10 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using wRetroApi.Models;
 
 namespace wRetroApi.Services
@@ -24,6 +26,9 @@ namespace wRetroApi.Services
             _session = database.GetCollection<Session>(settings.SessionCollectionName);
         }
 
-        public IEnumerable<Session> Get() => _session.Find(card => true).ToList();
+        public IEnumerable<Card> Get()
+        {
+            return _session.AsQueryable().Where(x => true).Select(x => x.Cards).ToList().First();
+        }
     }
 }
