@@ -9,6 +9,9 @@ module.exports = {
         full: '100%',
         '13': '13rem',
       },
+      colors: {
+        'transparent-white': 'rgba(255, 255, 255, 0.7)',
+      },
     },
   },
   variants: {},

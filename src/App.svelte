@@ -49,12 +49,12 @@
 <main class="main h-full p-12">
   <div class="flex flex-col h-full">
     <span class="text-lg text-gray-700 mb-4">Sprint 6 retro</span>
-    <div class="overflow-x-scroll scrollable-container h-full pb-2 px-2">
+    <div class="overflow-x-scroll scrollable-container box-shadow-lat h-full pb-2 px-2">
       <div class="flex h-full">
         {#each cards as { title, comments }, idx}
           <div class="w-full min-w-13 {getMargin(idx)}">
             <div
-              class="h-full flex flex-col py-8 pl-8 pr-6 bg-white rounded-lg
+              class="h-full flex flex-col py-8 pl-8 pr-6 bg-transparent-white rounded-lg
               border-gray-400 flex align-center w-full shadow-md
               overflow-y-scroll scrollable-container">
               <div class="sticky bg-white -top-2">
