@@ -9,6 +9,8 @@ namespace wRetroApi.Services
 {
     public interface ISessionService
     {
-        IEnumerable<Card> Get();
+        IEnumerable<Card> Get(string id);
+
+        void AddComment(string id, int idx, string comment);
     }
 }

@@ -2,8 +2,10 @@
 // Copyright (c) Payvision. All rights reserved.
 // </copyright>
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -26,9 +28,21 @@ namespace wRetroApi.Services
             _session = database.GetCollection<Session>(settings.SessionCollectionName);
         }
 
-        public IEnumerable<Card> Get()
+        public IEnumerable<Card> Get(string id)
         {
-            return _session.AsQueryable().Where(x => true).Select(x => x.Cards).ToList().First();
+            return _session
+                .AsQueryable()
+                .Where(x => x.Id == id)
+                .Select(x => x.Cards)
+                .FirstOrDefault();
+        }
+
+        public void AddComment(string id, int idx, string comment)
+        {
+            var filter = Builders<Session>.Filter.Eq("_id", ObjectId.Parse(id));
+            var update = Builders<Session>.Update.Push($"cards.{idx}.comments", new Comment {Text = comment});
+
+            _session.UpdateOne(filter, update, new UpdateOptions {IsUpsert = true,});
         }
     }
 }

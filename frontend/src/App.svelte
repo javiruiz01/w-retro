@@ -4,12 +4,16 @@
   import FabButton from './components/FabButton.svelte';
   import Card from './components/Card.svelte';
   import { data } from './Store.js';
+  import { onMount } from 'svelte';
+  import { fetchCards } from './http.client.js';
 
   let textareaToShow;
   let cards = [];
 
   $: getMargin = (idx) => (idx === cards.length - 1 ? 'mr-0' : 'mr-8');
   data.subscribe((value) => void (cards = value));
+
+  onMount(() => fetchCards('5e7df96c4b72d83920d44584'));
 
   function addColumn() {
     const newCard = {
@@ -29,7 +33,7 @@
       px-2 flex h-full">
       {#each cards as card, idx}
         <div class="w-full min-w-13 {getMargin(idx)}">
-          <Card {card} />
+          <Card {card} {idx} />
         </div>
       {/each}
     </div>

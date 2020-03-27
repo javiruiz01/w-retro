@@ -5,6 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using wRetroApi.Models;
 using wRetroApi.Services;
 
 namespace wRetroApi.Controllers
@@ -20,11 +21,26 @@ namespace wRetroApi.Controllers
             _sessionService = sessionService ?? throw new ArgumentNullException(nameof(sessionService));
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetCards()
+        public async Task<IActionResult> GetCards(string id)
         {
-            return Ok(_sessionService.Get());
+            return Ok(_sessionService.Get(id));
         }
+
+        [Route("{id}")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateComments(string id, [FromBody] CommentDto comment)
+        {
+            _sessionService.AddComment(id, comment.CardIdx, comment.Comment);
+            return Ok();
+        }
+    }
+
+    public class CommentDto
+    {
+        public string Comment { get; set; }
+
+        public int CardIdx { get; set; }
     }
 }

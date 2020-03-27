@@ -1,6 +1,8 @@
 <script>
   import CommentBox from './CommentBox.svelte';
+  import { postComment } from '../http.client.js';
   export let card;
+  export let idx;
 
   let showTextarea = false;
 
@@ -8,6 +10,7 @@
     if (!text.trim()) return;
 
     card.comments = [...card.comments, { text }];
+    postComment('5e7df96c4b72d83920d44584', idx, text);
   }
 </script>
 
