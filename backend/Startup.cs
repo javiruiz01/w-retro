@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using wRetroApi.Models;
+using wRetroApi.Services;
 
 namespace wRetroApi
 {
@@ -25,6 +28,14 @@ namespace wRetroApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // requires using Microsoft.Extensions.Options
+            services.Configure<RetroDatabaseSettings>(
+                Configuration.GetSection(nameof(RetroDatabaseSettings)));
+
+            services.AddSingleton<IRetroDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<RetroDatabaseSettings>>().Value);
+
+            services.AddSingleton<ISessionService, SessionService>();
             services.AddControllers();
         }
 
@@ -42,10 +53,7 @@ namespace wRetroApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
