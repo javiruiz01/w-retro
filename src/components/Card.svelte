@@ -3,30 +3,38 @@
   import CloseIcon from './icons/CloseIcon.svelte';
   import SubmitIcon from './icons/SubmitIcon.svelte';
   import Button from './Button.svelte';
+  import { tick } from 'svelte';
   export let card;
 
-  let commentText = '';
   let showTextArea = false;
+  let textareaElement;
 
   function toggleTextarea() {
     showTextArea = !showTextArea;
-    commentText = '';
+    tick().then(() => {
+      textareaElement.focus();
+      textareaElement.value = '';
+    });
   }
 
   function addComment() {
-    if (!commentText.trim()) return;
+    if (!textareaElement.value.trim()) return;
 
-    card.comments = [...card.comments, { text: commentText }];
+    card.comments = [...card.comments, { text: textareaElement.value }];
+    textareaElement.value = '';
   }
 
   function onKeyDown(event) {
-    const shouldSubmit =
-      !event.shiftKey &&
-      (event.code === 'Enter' || event.code === 'NumpadEnter');
-    if (shouldSubmit) {
-      event.preventDefault();
-      addComment();
-      commentText = '';
+    if (event.shiftKey) return;
+    switch (event.code) {
+      case 'Enter':
+      case 'NumpadEnter':
+        event.preventDefault();
+        addComment();
+        break;
+      case 'Escape':
+        toggleTextarea();
+        break;
     }
   }
 </script>
@@ -44,7 +52,7 @@
     </div>
     <div class="relative" class:hidden={!showTextArea}>
       <textarea
-        bind:value={commentText}
+        bind:this={textareaElement}
         on:keydown={onKeyDown}
         placeholder="Write something!"
         class="block resize-none border border-solid border-gray-400 rounded
