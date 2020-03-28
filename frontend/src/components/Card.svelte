@@ -1,6 +1,7 @@
 <script>
   import CommentBox from './CommentBox.svelte';
-  import { postComment } from '../http.client.js';
+  import RemoveIcon from './icons/RemoveIcon.svelte';
+  import { postComment, removeComment } from '../http.client.js';
   export let card;
   export let idx;
 
@@ -10,7 +11,14 @@
     if (!text.trim()) return;
 
     card.comments = [...card.comments, { text }];
-    postComment('5e7df96c4b72d83920d44584', idx, text);
+    postComment('5e7e44f44b72d83920d4458a', idx, text);
+  }
+
+  function deleteComment(commentId) {
+    card.comments = card.comments.filter(
+      (comment) => comment.commentId !== commentId
+    );
+    removeComment('5e7e44f44b72d83920d4458a', idx, commentId);
   }
 </script>
 
@@ -26,9 +34,14 @@
   <div class="mt-2">
     {#each card.comments as element}
       <div
-        class="mt-2 text-gray-800 py-2 px-4 rounded h-auto w-full flex
+        class="relative mt-2 text-gray-800 py-2 px-4 rounded h-auto w-full flex
         items-center border border-solid border-gray-400">
-        {element.text}
+        <span>{element.text}</span>
+        <button
+          on:click={() => deleteComment(element.commentId)}
+          class="absolute bottom-0 right-0 -mb-2 -mr-2">
+          <RemoveIcon />
+        </button>
       </div>
     {/each}
   </div>

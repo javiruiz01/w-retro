@@ -12,5 +12,7 @@ namespace wRetroApi.Services
         IEnumerable<Card> Get(string id);
 
         void AddComment(string id, int idx, string comment);
+
+        IEnumerable<Card> RemoveComment(string id, int cardIdx, string commentId);
     }
 }

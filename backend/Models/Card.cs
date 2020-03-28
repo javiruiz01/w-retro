@@ -8,6 +8,8 @@ namespace wRetroApi.Models
 {
     public class Card
     {
+        public string CardId { get; set; }
+
         public string Title { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }

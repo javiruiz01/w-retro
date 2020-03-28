@@ -8,6 +8,7 @@ namespace wRetroApi.Models
 {
     public class Comment
     {
+        public string CommentId { get; set; }
         public string Text { get; set; }
     }
 }
