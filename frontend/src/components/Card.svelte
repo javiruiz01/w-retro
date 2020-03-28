@@ -1,6 +1,6 @@
 <script>
   import CommentBox from './CommentBox.svelte';
-  import RemoveIcon from './icons/RemoveIcon.svelte';
+  import Comment from './Comment.svelte';
   import { postComment, removeComment } from '../http.client.js';
   export let card;
   export let idx;
@@ -33,15 +33,8 @@
 
   <div class="mt-2">
     {#each card.comments as element}
-      <div
-        class="relative mt-2 text-gray-800 py-2 px-4 rounded h-auto w-full flex
-        items-center border border-solid border-gray-400">
-        <span>{element.text}</span>
-        <button
-          on:click={() => deleteComment(element.commentId)}
-          class="absolute bottom-0 right-0 -mb-2 -mr-2">
-          <RemoveIcon />
-        </button>
+      <div class="mt-2 w-full">
+        <Comment {element} />
       </div>
     {/each}
   </div>

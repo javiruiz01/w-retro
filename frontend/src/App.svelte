@@ -30,7 +30,7 @@
     <span class="text-lg text-gray-700 mb-4">Sprint 6 retro</span>
     <div
       class="overflow-x-scroll scrollable-container box-shadow-lat h-full pb-2
-      px-1 flex h-full">
+      pl-1 flex h-full">
       {#each cards as card, idx}
         <div class="w-full min-w-13 {getMargin(idx)}">
           <Card {card} {idx} />
