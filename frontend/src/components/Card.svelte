@@ -34,7 +34,7 @@
   <div class="mt-2">
     {#each card.comments as element}
       <div class="mt-2 w-full">
-        <Comment {element} />
+        <Comment {element} {deleteComment} />
       </div>
     {/each}
   </div>
