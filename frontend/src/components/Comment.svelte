@@ -1,14 +1,35 @@
 <script>
   import { selectedContext } from '../ContextMenuStore.js';
   import { onMount } from 'svelte';
+  import OptionsIcon from './icons/OptionsIcon.svelte';
+  import LikeIcon from './icons/LikeIcon.svelte';
 
   export let element;
   export let deleteComment;
+  export let likeComment;
 
   let menu;
+  let optionsButton;
   let menuVisible = false;
 
   selectedContext.subscribe(() => void (menu && toggleMenu()));
+
+  function onDeleteComment(commentId) {
+    deleteComment(commentId);
+    toggleMenu();
+  }
+
+  function onLikeComment() {
+    element.likes += 1;
+    likeComment(element);
+  }
+
+  function openByOptions() {
+    selectedContext.update((value) => (value = element.commentId));
+    const { x, y } = optionsButton.getBoundingClientRect();
+    const origin = { left: x, top: y };
+    setPosition(origin);
+  }
 
   function openContextMenu(event) {
     selectedContext.update((value) => (value = element.commentId));
@@ -29,35 +50,40 @@
 </script>
 
 <div
-  on:contextmenu|preventDefault={openContextMenu}
-  class="relative text-gray-800 py-2 px-4 rounded h-auto w-full flex
-  items-center border border-solid border-gray-400">
-  <span>{element.text}</span>
-  <button class="absolute bottom-0 right-0 -m-2">
-    <svg
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      class="w-6 h-6 stroke-current text-green-500 hover:text-green-600
-      cursor-pointer">
-      <path
-        fill-rule="evenodd"
-        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656
-        5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-        clip-rule="evenodd" />
-    </svg>
+  class="relative text-gray-800 rounded h-auto w-full flex items-center border
+  border-solid border-gray-400">
+  <div class="p-4 w-full" on:contextmenu|preventDefault={openContextMenu}>
+    <span>{element.text}: {element.likes}</span>
+  </div>
+  <button
+    on:click={onLikeComment}
+    class="absolute bottom-0 right-0 mb-1 mx-2 z-10">
+    <LikeIcon />
+  </button>
+  <button
+    bind:this={optionsButton}
+    on:click|preventDefault={openByOptions}
+    class="options absolute top-0 right-0 mt-2 mr-1 z-10">
+    <OptionsIcon />
   </button>
 </div>
 
 <div
   bind:this={menu}
-  on:click={() => deleteComment(element.commentId)}
   class="contextmenu absolute hidden shadow-lg cursor-pointer rounded-tr-lg
-  rounded-b-lg border-2 z-10 ">
-  <ul>
-    <li class=" p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600">
+  rounded-b-lg border-2 z-20">
+  <ul tabindex="0">
+    <li
+      tabindex="0"
+      class=" p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600
+      focus:bg-green-600 focus:text-white ">
       Like comment
     </li>
-    <li class=" p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500">
+    <li
+      tabindex="0"
+      on:click={() => onDeleteComment(element.commentId)}
+      class=" p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
+      focus:bg-red-500 focus:text-white ">
       Remove comment
     </li>
   </ul>

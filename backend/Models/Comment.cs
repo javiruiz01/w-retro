@@ -10,5 +10,7 @@ namespace wRetroApi.Models
     {
         public string CommentId { get; set; }
         public string Text { get; set; }
+
+        public int Likes { get; set; }
     }
 }

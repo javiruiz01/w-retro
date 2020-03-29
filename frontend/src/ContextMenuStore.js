@@ -1,23 +1,30 @@
 import { writable } from 'svelte/store';
 
+const contextMenuClass = 'contextmenu';
+const optionsClass = 'options';
+
 export const selectedContext = writable('');
 
 window.addEventListener('click', (event) => {
-  if (!clickInsideContextMenu(event)) {
+  if (
+    !shouldKeepMenuOpen(event, contextMenuClass) &&
+    !shouldKeepMenuOpen(event, optionsClass)
+  ) {
     selectedContext.update((value) => void (value = ''));
   }
 });
 
-function clickInsideContextMenu({ srcElement, target }) {
+function shouldKeepMenuOpen({ srcElement, target }, className) {
   let element = srcElement || target;
-  const isContextMenu = ({ classList }) => classList.contains('contextmenu');
+  const isContextMenu = ({ classList }) =>
+    classList && classList.contains(className);
 
   if (isContextMenu(element)) {
     return true;
   }
 
   while ((element = element.parentNode)) {
-    if (element.classList && isContextMenu(element)) {
+    if (isContextMenu(element)) {
       return true;
     }
   }

@@ -37,12 +37,22 @@ namespace wRetroApi.Services
                 .FirstOrDefault();
         }
 
-        public void AddComment(string id, int cardIdx, string comment)
+        public Comment AddComment(string id, int cardIdx, Comment comment)
         {
+            var newComment = new Comment {CommentId = Guid.NewGuid().ToString(), Text = comment.Text};
             var filter = Builders<Session>.Filter.Eq("_id", ObjectId.Parse(id));
-            var update = Builders<Session>.Update.Push($"cards.{cardIdx}.comments", new Comment {CommentId = Guid.NewGuid().ToString(), Text = comment});
+            var update = Builders<Session>.Update.Push($"cards.{cardIdx}.comments", newComment);
 
             _session.UpdateOne(filter, update, new UpdateOptions {IsUpsert = true,});
+            return newComment;
+        }
+
+        public Comment UpdateComment(string sessionId, int cardIdx, int commentIdx, Comment comment)
+        {
+            var filter = Builders<Session>.Filter.Eq("_id", ObjectId.Parse(sessionId));
+            var update = Builders<Session>.Update.Set($"cards.{cardIdx}.comments.{commentIdx}", comment);
+            _session.UpdateOne(filter, update);
+            return comment;
         }
 
         public IEnumerable<Card> RemoveComment(string id, int cardIdx, string commentId)

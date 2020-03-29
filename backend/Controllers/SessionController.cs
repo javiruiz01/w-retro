@@ -1,4 +1,4 @@
-// <copyright file="CardsController.cs" company="Payvision">
+// <copyright file="SessionController.cs" company="Payvision">
 // Copyright (c) Payvision. All rights reserved.
 // </copyright>
 
@@ -11,13 +11,20 @@ namespace wRetroApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CardsController : ControllerBase
+    public class SessionController : ControllerBase
     {
         private readonly ISessionService _sessionService;
 
-        public CardsController(ISessionService sessionService)
+        public SessionController(ISessionService sessionService)
         {
             _sessionService = sessionService ?? throw new ArgumentNullException(nameof(sessionService));
+        }
+
+        [Route("{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetCards(string id)
+        {
+            return Ok(_sessionService.Get(id));
         }
     }
 }
