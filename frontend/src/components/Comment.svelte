@@ -53,13 +53,19 @@
   class="relative text-gray-800 rounded h-auto w-full flex items-center border
   border-solid border-gray-400">
   <div class="p-4 w-full" on:contextmenu|preventDefault={openContextMenu}>
-    <span>{element.text}: {element.likes}</span>
+    <span>{element.text}</span>
   </div>
-  <button
-    on:click={onLikeComment}
-    class="absolute bottom-0 right-0 mb-1 mx-2 z-10">
-    <LikeIcon />
-  </button>
+  <div class="absolute bottom-0 right-0 mb-1 mx-2 z-10">
+    <button
+      on:click={onLikeComment}
+      class="flex flex-row justify-center flex flex-row justify-center
+      items-center text-green-500 hover:text-green-600 cursor-pointer">
+      <span class:hidden={element.likes === 0} class="font-semibold mr-1">
+        +{element.likes}
+      </span>
+      <LikeIcon />
+    </button>
+  </div>
   <button
     bind:this={optionsButton}
     on:click|preventDefault={openByOptions}

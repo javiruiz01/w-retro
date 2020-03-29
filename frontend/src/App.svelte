@@ -38,5 +38,4 @@
       {/each}
     </div>
   </div>
-  <FabButton onClick={addColumn} />
 </main>
