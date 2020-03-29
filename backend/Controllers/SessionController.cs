@@ -22,9 +22,9 @@ namespace wRetroApi.Controllers
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetCards(string id)
+        public async Task<IActionResult> GetSession(Guid id)
         {
-            return Ok(_sessionService.Get(id));
+            return Ok(await _sessionService.GetSession(id));
         }
     }
 }

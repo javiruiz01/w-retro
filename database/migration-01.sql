@@ -1,3 +1,5 @@
+/** Baseline */
+
 USE master;
 GO
 
@@ -10,12 +12,14 @@ GO
 CREATE SCHEMA [wretro] AUTHORIZATION [dbo];
 GO
 
-CREATE TABLE wretro.Session (
+CREATE TABLE wretro.Session
+(
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY
 );
 GO
 
-CREATE TABLE wretro.Card (
+CREATE TABLE wretro.Card
+(
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	[Title] NVARCHAR(100) NOT NULL,
 	[SessionId] UNIQUEIDENTIFIER NOT NULL,
@@ -23,7 +27,8 @@ CREATE TABLE wretro.Card (
 );
 GO
 
-CREATE TABLE wretro.Comment (
+CREATE TABLE wretro.Comment
+(
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	[Text] NVARCHAR(200) NOT NULL,
 	[Likes] INT NOT NULL,

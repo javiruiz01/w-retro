@@ -5,7 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using wRetroApi.Services;
+using wRetroApi.Repositories;
 
 namespace wRetroApi.Controllers
 {
@@ -13,11 +13,18 @@ namespace wRetroApi.Controllers
     [Route("[controller]")]
     public class CardsController : ControllerBase
     {
-        private readonly ISessionService _sessionService;
+        private readonly ICardRepository _cardRepository;
 
-        public CardsController(ISessionService sessionService)
+        public CardsController(ICardRepository cardRepository)
         {
-            _sessionService = sessionService ?? throw new ArgumentNullException(nameof(sessionService));
+            _cardRepository = cardRepository ?? throw new ArgumentNullException(nameof(cardRepository));
+        }
+
+        [Route("")]
+        [HttpGet]
+        public async Task<IActionResult> GetCard()
+        {
+            return Ok();
         }
     }
 }

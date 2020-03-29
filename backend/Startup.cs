@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using wRetroApi.Models;
+using wRetroApi.Repositories;
 using wRetroApi.Services;
 
 namespace wRetroApi
@@ -38,13 +32,13 @@ namespace wRetroApi
                         builder => builder.WithOrigins("http://localhost:5000").AllowAnyHeader().AllowAnyMethod());
             });
 
-            services.Configure<RetroDatabaseSettings>(
-                Configuration.GetSection(nameof(RetroDatabaseSettings)));
+            services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
+            services.AddSingleton<IDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
-            services.AddSingleton<IRetroDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<RetroDatabaseSettings>>().Value);
-
-            services.AddSingleton<ISessionService, SessionService>();
+            services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ISessionService, SessionService>();
             services.AddControllers();
         }
 

@@ -1,13 +1,13 @@
 import { data } from './Store.js';
 
 const baseUrl = 'http://localhost:8080';
-let roomId = '5e8067924b72d83920d4458b';
+let roomId = '8986E7EF-6FF4-49EC-BAEA-EFC21576D649';
 
 export async function fetchCards() {
   const url = `${baseUrl}/session/${roomId}`;
   await fetch(url)
     .then((res) => res.json())
-    .then((res) => data.update((value) => (value = res)));
+    .then((res) => data.update((value) => (value = res.cards)));
 }
 
 export async function postComment(cardIdx, comment) {
