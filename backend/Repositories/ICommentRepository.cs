@@ -12,5 +12,11 @@ namespace wRetroApi.Repositories
     public interface ICommentRepository
     {
         Task<IEnumerable<Comment>> GetComments(Guid cardId);
+
+        Task<Comment> CreateComment(Guid cardId, string text);
+
+        Task UpdateComment(Guid id, Comment comment);
+
+        Task DeleteComment(Guid id);
     }
 }

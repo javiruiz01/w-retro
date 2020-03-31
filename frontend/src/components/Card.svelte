@@ -3,26 +3,23 @@
   import Comment from './Comment.svelte';
   import { postComment, removeComment, updateComment } from '../http.client.js';
   export let card;
-  export let idx;
 
   let showTextarea = false;
 
   async function addComment(text) {
     if (!text.trim()) return;
 
-    const comment = await postComment(idx, text);
+    const comment = await postComment(card.id, text);
     card.comments = [...card.comments, comment];
   }
 
   function deleteComment(commentId) {
-    card.comments = card.comments.filter(
-      (comment) => comment.commentId !== commentId
-    );
-    removeComment(idx, commentId);
+    card.comments = card.comments.filter(({ id }) => id !== commentId);
+    removeComment(commentId);
   }
 
-  function likeComment(commentIdx, comment) {
-    updateComment(idx, commentIdx, comment);
+  function likeComment(comment) {
+    updateComment(comment);
   }
 </script>
 
@@ -36,12 +33,9 @@
   </div>
 
   <div class="mt-2 pl-8 pr-6">
-    {#each card.comments as element, idx}
+    {#each card.comments as element}
       <div class="mt-2 w-full">
-        <Comment
-          {element}
-          {deleteComment}
-          likeComment={(comment) => likeComment(idx, comment)} />
+        <Comment {element} {deleteComment} {likeComment} />
       </div>
     {/each}
   </div>

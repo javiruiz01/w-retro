@@ -10,7 +10,7 @@ window.addEventListener('click', (event) => {
     !shouldKeepMenuOpen(event, contextMenuClass) &&
     !shouldKeepMenuOpen(event, optionsClass)
   ) {
-    selectedContext.update((value) => void (value = ''));
+    selectedContext.update((value) => (value = ''));
   }
 });
 

@@ -13,18 +13,18 @@ namespace wRetroApi.Controllers
     [Route("[controller]")]
     public class CardsController : ControllerBase
     {
-        private readonly ICardRepository _cardRepository;
+        private readonly ICommentRepository _commentRepository;
 
-        public CardsController(ICardRepository cardRepository)
+        public CardsController(ICommentRepository commentRepository)
         {
-            _cardRepository = cardRepository ?? throw new ArgumentNullException(nameof(cardRepository));
+            _commentRepository = commentRepository ?? throw new ArgumentNullException(nameof(commentRepository));
         }
 
-        [Route("")]
-        [HttpGet]
-        public async Task<IActionResult> GetCard()
+        [Route("{id}")]
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(Guid id, [FromBody] CreateCommentDto comment)
         {
-            return Ok();
+            return Ok(await _commentRepository.CreateComment(id, comment.Text));
         }
     }
 }

@@ -22,17 +22,18 @@
   function onLikeComment() {
     element.likes += 1;
     likeComment(element);
+    selectedContext.update((value) => (value = ''));
   }
 
   function openByOptions() {
-    selectedContext.update((value) => (value = element.commentId));
+    selectedContext.update((value) => (value = element.id));
     const { x, y } = optionsButton.getBoundingClientRect();
     const origin = { left: x, top: y };
     setPosition(origin);
   }
 
   function openContextMenu(event) {
-    selectedContext.update((value) => (value = element.commentId));
+    selectedContext.update((value) => (value = element.id));
     const origin = { left: event.pageX, top: event.pageY };
     setPosition(origin);
   }
@@ -52,7 +53,9 @@
 <div
   class="relative text-gray-800 rounded h-auto w-full flex items-center border
   border-solid border-gray-400">
-  <div class="p-4 w-full" on:contextmenu|preventDefault={openContextMenu}>
+  <div
+    class="py-4 pl-4 pr-6 w-full"
+    on:contextmenu|preventDefault={openContextMenu}>
     <span>{element.text}</span>
   </div>
   <div class="absolute bottom-0 right-0 mb-1 mx-2 z-10">
@@ -80,6 +83,7 @@
   rounded-b-lg border-2 z-20">
   <ul tabindex="0">
     <li
+      on:click={onLikeComment}
       tabindex="0"
       class=" p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600
       focus:bg-green-600 focus:text-white ">
@@ -87,7 +91,7 @@
     </li>
     <li
       tabindex="0"
-      on:click={() => onDeleteComment(element.commentId)}
+      on:click={() => onDeleteComment(element.id)}
       class=" p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
       focus:bg-red-500 focus:text-white ">
       Remove comment
