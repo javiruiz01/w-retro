@@ -29,7 +29,7 @@
   scrollable-container">
   <div class="sticky bg-white -top-2 z-10 pl-8 pr-6">
     <div class="w-full text-gray-700 mb-2">{card.title}</div>
-    <CommentBox onSubmit={(comment) => addComment(comment)} />
+    <CommentBox onSubmit={addComment} />
   </div>
 
   <div class="mt-2 pl-8 pr-6">

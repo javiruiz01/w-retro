@@ -15,19 +15,19 @@ VALUES
 
 -- Cards
 INSERT INTO [wretro].[Card]
-  (Id, Title, SessionId)
+  (Id, Title, Position, SessionId)
 VALUES
-  (@CARD_ID_1, 'Good', @SESSION_ID);
+  (@CARD_ID_1, 'Good', 0, @SESSION_ID);
 
 INSERT INTO [wretro].[Card]
-  (Id, Title, SessionId)
+  (Id, Title, Position, SessionId)
 VALUES
-  (@CARD_ID_2, 'Meh', @SESSION_ID);
+  (@CARD_ID_2, 'Meh', 1, @SESSION_ID);
 
 INSERT INTO [wretro].[Card]
-  (Id, Title, SessionId)
+  (Id, Title, Position, SessionId)
 VALUES
-  (@CARD_ID_3, 'Bad', @SESSION_ID);
+  (@CARD_ID_3, 'Bad', 2, @SESSION_ID);
 
 -- Comments
 INSERT INTO [wretro].[Comment]

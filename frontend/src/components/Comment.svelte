@@ -14,8 +14,8 @@
 
   selectedContext.subscribe(() => void (menu && toggleMenu()));
 
-  function onDeleteComment(commentId) {
-    deleteComment(commentId);
+  function onDeleteComment() {
+    deleteComment(element.id);
     toggleMenu();
   }
 
@@ -91,7 +91,7 @@
     </li>
     <li
       tabindex="0"
-      on:click={() => onDeleteComment(element.id)}
+      on:click={onDeleteComment}
       class=" p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
       focus:bg-red-500 focus:text-white ">
       Remove comment

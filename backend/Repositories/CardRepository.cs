@@ -25,7 +25,8 @@ namespace wRetroApi.Repositories
         {
             var query = new StringBuilder()
                 .Append("SELECT Id, Title FROM [wretro].[wretro].[Card]")
-                .Append("WHERE SessionId = @sessionId")
+                .AppendLine("WHERE SessionId = @sessionId")
+                .AppendLine("ORDER By Position ASC")
                 .ToString();
 
             using (var connection = new SqlConnection(_connectionString))
