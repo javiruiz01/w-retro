@@ -27,4 +27,9 @@ namespace wRetroApi.Controllers
             return Ok(await _commentRepository.CreateComment(id, comment.Text));
         }
     }
+
+    public class CreateCommentDto
+    {
+        public string Text { get; set; }
+    }
 }
