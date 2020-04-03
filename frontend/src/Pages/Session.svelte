@@ -7,8 +7,8 @@
 </script>
 
 <div
-  class=" w-full h-full flex flex-col lg:flex-row justify-center items-center
-  p-6">
+  class="max-w-screen-lg w-full h-full f p-6 flex flex-col lg:flex-row
+  justify-center items-center m-auto">
   <form
     on:submit|preventDefault={handleSubmit}
     class="w-3/4 flex flex-col mb-8 lg:mb-0">
@@ -20,8 +20,8 @@
     <input
       bind:value={rawSession}
       class="w-4/5 bg-white focus:outline-none focus:shadow-outline border
-      border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal
-      self-center lg:self-start shadow-md text-2xl"
+      border-gray-300 rounded-lg p-4 block appearance-none leading-normal
+      self-center lg:self-start shadow-md"
       type="text"
       name="sessionId"
       id="sessionId" />

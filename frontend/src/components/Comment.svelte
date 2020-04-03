@@ -27,9 +27,8 @@
 
   function openByOptions() {
     selectedContext.update((value) => (value = element.id));
-    const { x, y } = optionsButton.getBoundingClientRect();
-    const origin = { left: x, top: y };
-    setPosition(origin);
+    const { x: left, y: top } = optionsButton.getBoundingClientRect();
+    setPosition({ left, top });
   }
 
   function openContextMenu(event) {
@@ -54,7 +53,7 @@
   class="relative text-gray-800 rounded h-auto w-full flex items-center border
   border-solid border-gray-400">
   <div
-    class="py-4 pl-4 pr-6 w-full"
+    class="py-4 pl-4 pr-8 w-full"
     on:contextmenu|preventDefault={openContextMenu}>
     <span>{element.text}</span>
   </div>
