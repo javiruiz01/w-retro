@@ -2,22 +2,33 @@
 // Copyright (c) Payvision. All rights reserved.
 // </copyright>
 
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using wRetroApi.Models;
 
 namespace wRetroApi.Services
 {
     public class SignalHub : Hub
     {
-        public async Task AddToGroup(string session)
+        private readonly ISessionService _sessionService;
+
+        public SignalHub(ISessionService sessionService)
         {
+            _sessionService = sessionService ?? throw new ArgumentNullException(nameof(sessionService));
+        }
+
+        public async Task AddToGroup(Guid rawSession)
+        {
+            var session = rawSession.ToString();
             await Groups.AddToGroupAsync(Context.ConnectionId, session);
             await Clients.Group(session).SendAsync("Connected", $"{Context.ConnectionId} has joined the group {session}");
         }
 
-        public async Task SendMessage(string group, string message)
+        public async Task UpdateCards(Guid rawSession)
         {
-            await Clients.Group(group).SendAsync("ReceiveMessage", message);
+            var state = await _sessionService.GetSession(rawSession);
+            await Clients.Group(rawSession.ToString()).SendAsync("Update", state);
         }
     }
 }

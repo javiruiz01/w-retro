@@ -22,17 +22,17 @@
   function onLikeComment() {
     element.likes += 1;
     likeComment(element);
-    selectedContext.update((value) => (value = ''));
+    selectedContext.set('');
   }
 
   function openByOptions() {
-    selectedContext.update((value) => (value = element.id));
+    selectedContext.set(element.id);
     const { x: left, y: top } = optionsButton.getBoundingClientRect();
     setPosition({ left, top });
   }
 
   function openContextMenu(event) {
-    selectedContext.update((value) => (value = element.id));
+    selectedContext.set(element.id);
     const origin = { left: event.pageX, top: event.pageY };
     setPosition(origin);
   }

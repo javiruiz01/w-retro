@@ -3,7 +3,7 @@
 
   $: rawSession = '';
 
-  const handleSubmit = () => void session.update((_) => rawSession);
+  const handleSubmit = () => void session.set(rawSession);
 </script>
 
 <div

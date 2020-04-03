@@ -1,7 +1,7 @@
 <script>
   import { session } from '../Stores/SessionStore.js';
 
-  const handleClick = () => void session.update((_) => '');
+  const handleClick = () => void session.set('');
 </script>
 
 <nav
