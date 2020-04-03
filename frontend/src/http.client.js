@@ -1,4 +1,4 @@
-import { session } from './SessionStore.js';
+import { session } from './Stores/SessionStore.js';
 
 let roomId = '';
 session.subscribe((value) => void (roomId = value));

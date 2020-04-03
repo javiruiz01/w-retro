@@ -1,5 +1,5 @@
 <script>
-  import { session } from '../SessionStore';
+  import { session } from '../Stores/SessionStore';
 
   $: rawSession = '';
 

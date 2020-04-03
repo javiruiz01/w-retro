@@ -3,7 +3,7 @@
   import RetroPage from './Pages/Retro.svelte';
   import SessionPage from './Pages/Session.svelte';
   import Navbar from './components/Navbar.svelte';
-  import { session } from './SessionStore.js';
+  import { session } from './Stores/SessionStore.js';
   import { onMount } from 'svelte';
   import { initHubConnection, addToGroup } from './Hub.js';
 

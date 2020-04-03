@@ -1,5 +1,5 @@
 <script>
-  import { selectedContext } from '../ContextMenuStore.js';
+  import { selectedContext } from '../Stores/ContextMenuStore.js';
   import { onMount } from 'svelte';
   import OptionsIcon from './icons/OptionsIcon.svelte';
   import LikeIcon from './icons/LikeIcon.svelte';
