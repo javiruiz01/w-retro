@@ -1,9 +1,10 @@
+import { updateCards } from './Hub.js';
 import { session } from './Stores/SessionStore.js';
 
 let roomId = '';
 session.subscribe((value) => void (roomId = value));
 
-export const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://localhost:8080';
 const headers = { 'Content-type': 'application/json' };
 
 export async function fetchCards() {
@@ -18,12 +19,17 @@ export async function postComment(cardId, text) {
     method: 'POST',
     body: JSON.stringify(body),
     headers,
-  }).then((res) => res.json());
+  }).then((res) => {
+    updateCards(roomId);
+    return res.json();
+  });
 }
 
 export async function removeComment(commentId) {
   const url = `${baseUrl}/comments/${commentId}`;
-  await fetch(url, { method: 'DELETE', headers });
+  await fetch(url, { method: 'DELETE', headers }).then(
+    (_) => void updateCards(roomId)
+  );
 }
 
 export async function updateComment(comment) {
@@ -32,5 +38,5 @@ export async function updateComment(comment) {
     method: 'PUT',
     body: JSON.stringify(comment),
     headers,
-  });
+  }).then((_) => void updateCards(roomId));
 }

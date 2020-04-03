@@ -1,5 +1,5 @@
 <script>
-  import { session } from '../SessionStore.js';
+  import { session } from '../Stores/SessionStore.js';
 
   const handleClick = () => void session.update((_) => '');
 </script>
