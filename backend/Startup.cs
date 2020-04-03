@@ -29,7 +29,11 @@ namespace wRetroApi
                 options
                     .AddPolicy(
                         AllowedOrigins,
-                        builder => builder.WithOrigins("http://localhost:5000").AllowAnyHeader().AllowAnyMethod());
+                        builder => builder
+                            .WithOrigins("http://localhost:5000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials());
             });
 
             services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
@@ -39,6 +43,7 @@ namespace wRetroApi
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ISessionService, SessionService>();
+            services.AddSignalR();
             services.AddControllers();
         }
 
@@ -58,7 +63,11 @@ namespace wRetroApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<SignalHub>("/realtime");
+            });
         }
     }
 }

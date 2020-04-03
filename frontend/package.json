@@ -22,6 +22,7 @@
     "tailwindcss": "^1.2.0"
   },
   "dependencies": {
+    "@aspnet/signalr": "^1.1.4",
     "sirv-cli": "^0.4.4"
   }
 }
