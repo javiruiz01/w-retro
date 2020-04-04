@@ -35,27 +35,22 @@
 <nav class="p-3 shadow-md align-text-middle bg-white">
   <div
     class="text-3xl text-gray-700 flex items-baseline flex-row justify-between
-    w-full">
-    <h1
-      tabindex="0"
-      on:click|preventDefault={clearSession}
-      class="block ml-5 cursor-pointer">
+    cursor-pointer w-full">
+    <h1 tabindex="0" on:click|preventDefault={clearSession} class="block ml-5 ">
       w-retro
     </h1>
     <span
       class="relative block mr-5 text-lg"
       on:click|preventDefault={copySessionId}
       class:hidden={!sessionId.trim()}>
-      <span class="text-teal-500 cursor-pointer lg:cursor-default">
-        Session Id
-      </span>
+      <span class="text-teal-500 lg:cursor-default">Session Id</span>
       <span
-        class="hover:bg-teal-700 hover:text-white p-1 rounded-lg cursor-pointer
-        hidden md:inline-block">
+        class="hover:bg-teal-700 hover:text-white p-1 rounded-lg hidden
+        md:inline-block">
         {sessionId}
       </span>
       <div
-        class="absolute left-0 mt-2 bottom-auto bg-gray-700 text-white
+        class="absolute right-0 mt-2 bottom-auto bg-gray-700 text-white
         font-semibold slide-down hover:bg-gray-700 shadow-lg p-2 rounded-lg"
         class:hidden={!showCopiedNotification}>
         Copied!
