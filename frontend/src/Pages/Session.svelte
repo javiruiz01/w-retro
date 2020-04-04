@@ -37,10 +37,10 @@
           </Button>
         </div>
       </div>
-      <span>
+      <span class="self-center lg:self-start">
         Or, create a new session
         <a
-          class="text-teal-500 hover:text-teal-800 font-semibold"
+          class="text-teal-500 hover:text-teal-800 font-semibold "
           on:click|preventDefault={createNewSession}
           href="/">
           here
