@@ -1,4 +1,4 @@
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 import { cards } from './Stores/CardsStore.js';
 
 const baseUrl = 'http://localhost:8080';

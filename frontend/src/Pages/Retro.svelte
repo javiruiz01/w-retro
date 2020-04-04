@@ -6,9 +6,7 @@
 
   let columns = [];
 
-  onMount(() => {
-    fetchCards().then((res) => void cards.set(res.cards));
-  });
+  onMount(() => void fetchCards().then((res) => void cards.set(res.cards)));
   cards.subscribe((value) => void (columns = value));
 
   const getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');

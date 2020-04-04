@@ -40,7 +40,7 @@
 <div class="w-full mb-2">
   <Button onClick={toggleTextarea}>
     {#if showTextarea}
-      <CloseIcon color={'text-gray-800ks'} />
+      <CloseIcon color={'text-gray-800'} />
     {:else}
       <AddIcon />
     {/if}

@@ -61,7 +61,7 @@
     <button
       on:click={onLikeComment}
       class="flex flex-row justify-center flex flex-row justify-center
-      items-center text-green-500 hover:text-green-600 cursor-pointer">
+      items-center text-teal-500 hover:text-teal-800 cursor-pointer">
       <span class:hidden={element.likes === 0} class="font-semibold mr-1">
         +{element.likes}
       </span>
