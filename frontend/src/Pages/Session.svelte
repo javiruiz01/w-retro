@@ -1,10 +1,12 @@
 <script>
   import { session } from '../Stores/SessionStore';
+  import { createSession } from '../http.client.js';
   import Button from '../components/Button.svelte';
 
   $: rawSession = '';
 
   const handleSubmit = () => void session.set(rawSession);
+  const createNewSession = async () => void session.set(await createSession());
 </script>
 
 <div class="grid grid-cols-1 grid-rows-2 h-full items-center">
@@ -17,7 +19,7 @@
         for="sessionId">
         Already created a session?
       </label>
-      <div class="flex flex-col lg:flex-row justify-center items-center">
+      <div class="flex flex-col lg:flex-row justify-center items-center mb-4">
         <input
           bind:value={rawSession}
           placeholder="Input your session Id here"
@@ -28,11 +30,22 @@
           name="sessionId"
           id="sessionId" />
         <div class="w-2/6 pl-4">
-          <Button override="text-white bg-teal-500 hover:bg-teal-800 p-4">
+          <Button
+            override="text-gray-900 font-semibold hover:text-white bg-teal-500
+            hover:bg-teal-800 p-4">
             Submit
           </Button>
         </div>
       </div>
+      <span>
+        Or, create a new session
+        <a
+          class="text-teal-500 hover:text-teal-800 font-semibold"
+          on:click|preventDefault={createNewSession}
+          href="/">
+          here
+        </a>
+      </span>
     </form>
   </div>
   <img

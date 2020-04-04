@@ -11,5 +11,7 @@ namespace wRetroApi.Services
     public interface ISessionService
     {
         Task<Session> GetSession(Guid id);
+
+        Task<Guid> CreateSession();
     }
 }

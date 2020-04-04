@@ -12,5 +12,7 @@ namespace wRetroApi.Repositories
     public interface ICardRepository
     {
         Task<IEnumerable<Card>> GetCards(Guid sessionId);
+
+        Task CreateCard(Card card, Guid sessionId);
     }
 }

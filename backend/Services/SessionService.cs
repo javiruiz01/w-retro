@@ -14,11 +14,13 @@ namespace wRetroApi.Services
     {
         private readonly ICardRepository _cardRepository;
         private readonly ICommentRepository _commentRepository;
+        private readonly ISessionRepository _sessionRepository;
 
-        public SessionService(ICardRepository cardRepository, ICommentRepository commentRepository)
+        public SessionService(ICardRepository cardRepository, ICommentRepository commentRepository, ISessionRepository sessionRepository)
         {
             _cardRepository = cardRepository ?? throw new ArgumentNullException(nameof(cardRepository));
             _commentRepository = commentRepository ?? throw new ArgumentNullException(nameof(commentRepository));
+            _sessionRepository = sessionRepository ?? throw new ArgumentNullException(nameof(sessionRepository));
         }
 
         public async Task<Session> GetSession(Guid sessionId)
@@ -31,6 +33,27 @@ namespace wRetroApi.Services
             }));
 
             return new Session {Id = sessionId, Cards = cards};
+        }
+
+        public async Task<Guid> CreateSession()
+        {
+            var cards = new[] {"Good", "Meh", "bad"}
+                .Select((title, idx) => new Card
+                {
+                    Id = Guid.NewGuid(),
+                    Title = title,
+                    Position = idx,
+                    Comments = new[] {new Comment {Id = Guid.NewGuid(), Text = "Example Text", Likes = 0}}
+                });
+
+            var sessionId = Guid.NewGuid();
+            await _sessionRepository.CreateSession(sessionId);
+            foreach (Card card in cards)
+            {
+                await _cardRepository.CreateCard(card, sessionId);
+            }
+
+            return sessionId;
         }
     }
 }

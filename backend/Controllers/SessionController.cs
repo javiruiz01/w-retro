@@ -26,5 +26,13 @@ namespace wRetroApi.Controllers
         {
             return Ok(await _sessionService.GetSession(id));
         }
+
+        [Route("")]
+        [HttpPost]
+        public async Task<IActionResult> CreateSession()
+        {
+            var session = await _sessionService.CreateSession();
+            return Ok(session);
+        }
     }
 }

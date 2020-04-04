@@ -7,6 +7,11 @@ session.subscribe((value) => void (roomId = value));
 const baseUrl = 'http://localhost:8080';
 const headers = { 'Content-type': 'application/json' };
 
+export async function createSession() {
+  const url = `${baseUrl}/session`;
+  return await fetch(url, { method: 'POST' }).then((res) => res.json());
+}
+
 export async function fetchCards() {
   const url = `${baseUrl}/session/${roomId}`;
   return await fetch(url).then((res) => res.json());

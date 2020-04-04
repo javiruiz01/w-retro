@@ -13,6 +13,8 @@ namespace wRetroApi.Models
 
         public string Title { get; set; }
 
+        public int Position { get; set; }
+
         public IEnumerable<Comment> Comments { get; set; }
     }
 }

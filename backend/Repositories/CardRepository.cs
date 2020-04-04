@@ -34,5 +34,24 @@ namespace wRetroApi.Repositories
                 return await connection.QueryAsync<Card>(query, new {sessionId = id}).ConfigureAwait(false);
             }
         }
+
+        public async Task CreateCard(Card card, Guid sessionId)
+        {
+            var query = new StringBuilder()
+                .Append("INSERT INTO [wretro].[wretro].[Card] (Id, Title, Position, SessionId)")
+                .AppendLine("VALUES (@id, @title, @position, @sessionId)")
+                .ToString();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.ExecuteAsync(query, new
+                {
+                    id = card.Id,
+                    title = card.Title,
+                    position = card.Position,
+                    sessionId,
+                }).ConfigureAwait(false);
+            }
+        }
     }
 }
