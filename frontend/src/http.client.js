@@ -4,7 +4,7 @@ import { session } from './Stores/SessionStore.js';
 let roomId = '';
 session.subscribe((value) => void (roomId = value));
 
-const baseUrl = 'http://localhost:8080';
+const { API_URL: baseUrl } = process.env;
 const headers = { 'Content-type': 'application/json' };
 
 export async function createSession() {

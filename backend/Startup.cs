@@ -45,6 +45,7 @@ namespace wRetroApi
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionRepository, SessionRepository>();
             services.AddSignalR();
+            services.AddHealthChecks();
             services.AddControllers();
         }
 
@@ -68,6 +69,7 @@ namespace wRetroApi
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<SignalHub>("/realtime");
+                endpoints.MapHealthChecks("/health");
             });
         }
     }

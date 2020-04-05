@@ -1,5 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import replace from '@rollup/plugin-replace';
 import livereload from 'rollup-plugin-livereload';
 import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
@@ -13,18 +14,26 @@ export default {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: 'public/build/bundle.js'
+    file: 'public/build/bundle.js',
   },
   plugins: [
+    replace({
+      process: JSON.stringify({
+        env: {
+          isProd: production,
+          API_URL: production ? 'holita' : 'http://localhost:8080',
+        },
+      }),
+    }),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file - better for performance
-      css: css => {
+      css: (css) => {
         css.write('public/build/bundle.css');
       },
-      preprocess: sveltePreprocess({ postcss: true })
+      preprocess: sveltePreprocess({ postcss: true }),
     }),
 
     // If you have external dependencies installed from
@@ -34,7 +43,7 @@ export default {
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
     resolve({
       browser: true,
-      dedupe: ['svelte']
+      dedupe: ['svelte'],
     }),
     commonjs(),
 
@@ -48,11 +57,11 @@ export default {
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
-    production && terser()
+    production && terser(),
   ],
   watch: {
-    clearScreen: false
-  }
+    clearScreen: false,
+  },
 };
 
 function serve() {
@@ -65,9 +74,9 @@ function serve() {
 
         require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
           stdio: ['ignore', 'inherit', 'inherit'],
-          shell: true
+          shell: true,
         });
       }
-    }
+    },
   };
 }

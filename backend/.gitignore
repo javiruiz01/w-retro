@@ -275,3 +275,4 @@ External Libs/DotNetMQ/Logs/
 mono_crash.*
 
 .idea
+out/*
