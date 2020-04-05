@@ -1,8 +1,8 @@
 import { updateCards } from './Hub.js';
-import { session } from './Stores/SessionStore.js';
+import { sessionStore } from './Stores/SessionStore.js';
 
 let roomId = '';
-session.subscribe((value) => void (roomId = value));
+sessionStore.subscribe((value) => void (roomId = value));
 
 const { API_URL: baseUrl } = process.env;
 const headers = { 'Content-type': 'application/json' };

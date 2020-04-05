@@ -1,5 +1,5 @@
 import * as signalR from '@microsoft/signalr';
-import { cards } from './Stores/CardsStore.js';
+import { cardsStore } from './Stores/cardsStore.js';
 
 const { API_URL: baseUrl } = process.env;
 let hubConnection;
@@ -14,7 +14,7 @@ export const initHubConnection = () => {
     .catch(console.error);
 
   hubConnection.on('Connected', console.log);
-  hubConnection.on('Update', (res) => void cards.set(res.cards));
+  hubConnection.on('Update', (res) => void cardsStore.set(res.cards));
 };
 
 export const addToGroup = (session) =>

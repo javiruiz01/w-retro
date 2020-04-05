@@ -3,13 +3,13 @@
   import RetroPage from './Pages/Retro.svelte';
   import SessionPage from './Pages/Session.svelte';
   import Navbar from './components/Navbar.svelte';
-  import { session } from './Stores/SessionStore.js';
+  import { sessionStore } from './Stores/SessionStore.js';
   import { onMount } from 'svelte';
   import { initHubConnection, addToGroup } from './Hub.js';
 
   let ready = false;
 
-  session.subscribe((value) => {
+  sessionStore.subscribe((value) => {
     ready = !!value.trim();
     if (ready) {
       addToGroup(value);

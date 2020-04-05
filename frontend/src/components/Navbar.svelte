@@ -1,11 +1,11 @@
 <script>
-  import { session } from '../Stores/SessionStore.js';
+  import { sessionStore } from '../Stores/SessionStore.js';
 
   let sessionId = '';
   let showCopiedNotification = false;
 
-  const clearSession = () => void session.set('');
-  session.subscribe((value) => void (sessionId = value));
+  const clearSession = () => void sessionStore.set('');
+  sessionStore.subscribe((value) => void (sessionId = value));
 
   const copySessionId = () => {
     showCopiedNotification = true;

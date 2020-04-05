@@ -2,12 +2,14 @@
   import Card from '../components/Card.svelte';
   import { onMount } from 'svelte';
   import { fetchCards } from '../http.client.js';
-  import { cards } from '../Stores/CardsStore.js';
+  import { cardsStore } from '../Stores/CardsStore.js';
 
   let columns = [];
 
-  onMount(() => void fetchCards().then((res) => void cards.set(res.cards)));
-  cards.subscribe((value) => void (columns = value));
+  onMount(
+    () => void fetchCards().then((res) => void cardsStore.set(res.cards))
+  );
+  cardsStore.subscribe((value) => void (columns = value));
 
   const getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
 </script>

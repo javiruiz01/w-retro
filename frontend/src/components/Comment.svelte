@@ -1,5 +1,5 @@
 <script>
-  import { selectedContext } from '../Stores/ContextMenuStore.js';
+  import { contextStore } from '../Stores/ContextMenuStore.js';
   import { onMount } from 'svelte';
   import OptionsIcon from './icons/OptionsIcon.svelte';
   import LikeIcon from './icons/LikeIcon.svelte';
@@ -12,7 +12,7 @@
   let optionsButton;
   let menuVisible = false;
 
-  selectedContext.subscribe(() => void (menu && toggleMenu()));
+  contextStore.subscribe(() => void (menu && toggleMenu()));
 
   function onDeleteComment() {
     deleteComment(element.id);
@@ -22,17 +22,17 @@
   function onLikeComment() {
     element.likes += 1;
     likeComment(element);
-    selectedContext.set('');
+    contextStore.set('');
   }
 
   function openByOptions() {
-    selectedContext.set(element.id);
+    contextStore.set(element.id);
     const { x: left, y: top } = optionsButton.getBoundingClientRect();
     setPosition({ left, top });
   }
 
   function openContextMenu(event) {
-    selectedContext.set(element.id);
+    contextStore.set(element.id);
     const origin = { left: event.pageX, top: event.pageY };
     setPosition(origin);
   }

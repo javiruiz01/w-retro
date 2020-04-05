@@ -3,14 +3,14 @@ import { writable } from 'svelte/store';
 const contextMenuClass = 'contextmenu';
 const optionsClass = 'options';
 
-export const selectedContext = writable('');
+export const contextStore = writable('');
 
 window.addEventListener('click', (event) => {
   if (
     !shouldKeepMenuOpen(event, contextMenuClass) &&
     !shouldKeepMenuOpen(event, optionsClass)
   ) {
-    selectedContext.set('');
+    contextStore.set('');
   }
 });
 
