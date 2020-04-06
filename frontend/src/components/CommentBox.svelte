@@ -1,4 +1,5 @@
 <script>
+  import { slide } from 'svelte/transition';
   import { tick } from 'svelte';
   import AddIcon from './icons/Add.svelte';
   import Button from './Button.svelte';
@@ -31,8 +32,8 @@
   function toggleTextarea() {
     showTextarea = !showTextarea;
     tick().then(() => {
-      textareaElement.focus();
       textareaElement.value = '';
+      textareaElement.focus();
     });
   }
 </script>
@@ -46,17 +47,20 @@
     {/if}
   </Button>
 </div>
-<div class="relative" class:hidden={!showTextarea}>
-  <textarea
-    bind:this={textareaElement}
-    on:keydown={onKeyDown}
-    placeholder="Write something!"
-    class="block resize-none border border-solid border-gray-400 rounded
-    focus:outline focuse:shadow-outline w-full py-2 px-4 scrollable-container" />
-  <button class="absolute bottom-0 right-0 mb-1 mr-1" on:click={submit}>
-    <SubmitIcon />
-  </button>
-  <button class="absolute top-0 right-0 mt-1 mr-1" on:click={toggleTextarea}>
-    <CloseIcon />
-  </button>
-</div>
+{#if showTextarea}
+  <div transition:slide|local={{ duration: 200 }} class="relative">
+    <textarea
+      bind:this={textareaElement}
+      on:keydown={onKeyDown}
+      placeholder="Write something!"
+      class="block resize-none border border-solid border-gray-400 rounded
+      focus:outline-none focus:shadow-outline w-full py-2 px-4
+      scrollable-container" />
+    <button class="absolute bottom-0 right-0 mb-1 mr-1" on:click={submit}>
+      <SubmitIcon />
+    </button>
+    <button class="absolute top-0 right-0 mt-1 mr-1" on:click={toggleTextarea}>
+      <CloseIcon />
+    </button>
+  </div>
+{/if}

@@ -5,6 +5,7 @@
     updateComment,
     updateTitle,
   } from '../http.client.js';
+  import { slide } from 'svelte/transition';
   import CardTitle from './CardTitle.svelte';
   import Comment from './Comment.svelte';
   import CommentBox from './CommentBox.svelte';
@@ -39,14 +40,14 @@
   class="h-full flex flex-col py-8 bg-transparent-white rounded-lg
   border-gray-400 flex align-center w-full shadow-md overflow-y-scroll
   scrollable-container">
-  <div class="sticky bg-white -top-2 z-10 pl-8 pr-6">
+  <div class="sticky bg-white -top-2 z-20 pl-8 pr-6">
     <CardTitle title={card.title} updateTitle={onUpdateTitle} />
     <CommentBox onSubmit={addComment} />
   </div>
 
   <div class="mt-2 pl-8 pr-6">
     {#each card.comments as element}
-      <div class="mt-2 w-full">
+      <div transition:slide|local={{ duration: 300 }} class="mt-2 w-full">
         <Comment {element} {deleteComment} {likeComment} />
       </div>
     {/each}
