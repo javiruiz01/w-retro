@@ -24,7 +24,7 @@ namespace wRetroApi.Repositories
         public async Task<IEnumerable<Card>> GetCards(Guid id)
         {
             var query = new StringBuilder()
-                .Append("SELECT Id, Title FROM [wretro].[wretro].[Card]").AppendLine()
+                .Append("SELECT Id, Title, Position FROM [wretro].[wretro].[Card]").AppendLine()
                 .Append("WHERE SessionId = @sessionId").AppendLine()
                 .Append("ORDER By Position ASC")
                 .ToString();

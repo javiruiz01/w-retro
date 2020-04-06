@@ -7,7 +7,7 @@
   let columns = [];
 
   onMount(
-    () => void fetchCards().then((res) => void cardsStore.set(res.cards))
+    () => void fetchCards().then(({ cards }) => void cardsStore.set(cards))
   );
   cardsStore.subscribe((value) => void (columns = value));
 
