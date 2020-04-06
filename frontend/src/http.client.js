@@ -45,3 +45,11 @@ export async function updateComment(comment) {
     headers,
   }).then((_) => void updateCards(roomId));
 }
+
+export async function updateTitle(cardId, title) {
+  const url = `${baseUrl}/cards/${cardId}`;
+  const body = { text: title };
+  await fetch(url, { method: 'PUT', body: JSON.stringify(body), headers }).then(
+    (_) => void updateCards(roomId)
+  );
+}

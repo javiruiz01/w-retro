@@ -1,5 +1,10 @@
 <script>
-  import { postComment, removeComment, updateComment } from '../http.client.js';
+  import {
+    postComment,
+    removeComment,
+    updateComment,
+    updateTitle,
+  } from '../http.client.js';
   import CardTitle from './CardTitle.svelte';
   import Comment from './Comment.svelte';
   import CommentBox from './CommentBox.svelte';
@@ -23,6 +28,11 @@
   function likeComment(comment) {
     updateComment(comment);
   }
+
+  function onUpdateTitle(title) {
+    card.title = title;
+    updateTitle(card.id, title);
+  }
 </script>
 
 <div
@@ -30,7 +40,7 @@
   border-gray-400 flex align-center w-full shadow-md overflow-y-scroll
   scrollable-container">
   <div class="sticky bg-white -top-2 z-10 pl-8 pr-6">
-    <CardTitle title={card.title} />
+    <CardTitle title={card.title} updateTitle={onUpdateTitle} />
     <CommentBox onSubmit={addComment} />
   </div>
 

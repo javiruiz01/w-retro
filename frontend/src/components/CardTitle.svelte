@@ -4,6 +4,7 @@
   import EditIcon from './icons/Edit.svelte';
 
   export let title = '';
+  export let updateTitle;
 
   let inputBox;
   let isEditing = false;
@@ -14,18 +15,27 @@
   };
 
   const closeEdit = () => void (isEditing = false);
+
+  const onSubmit = () => {
+    if (inputBox.value.trim()) {
+      updateTitle(inputBox.value);
+      closeEdit();
+    }
+  };
 </script>
 
 {#if isEditing}
-  <input
-    class="mb-2 w-full border border-gray-300 rounded-lg p-2 pl-4 block
-    appearance-none leading-snug shadow-sm focus:outline-none
-    focus:shadow-outline"
-    type="text"
-    bind:this={inputBox}
-    use:clickOutsideDirective
-    on:clickOutside={closeEdit}
-    placeholder={title} />
+  <form on:submit|preventDefault={onSubmit}>
+    <input
+      class="mb-2 w-full border border-gray-300 rounded-lg p-2 pl-4 block
+      appearance-none leading-snug shadow-sm focus:outline-none
+      focus:shadow-outline"
+      type="text"
+      bind:this={inputBox}
+      use:clickOutsideDirective
+      on:clickOutside={closeEdit}
+      placeholder={title} />
+  </form>
 {:else}
   <div
     class="w-full text-gray-700 hover:text-teal-600 mb-2 cursor-pointer flex

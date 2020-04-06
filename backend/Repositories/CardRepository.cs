@@ -24,9 +24,9 @@ namespace wRetroApi.Repositories
         public async Task<IEnumerable<Card>> GetCards(Guid id)
         {
             var query = new StringBuilder()
-                .Append("SELECT Id, Title FROM [wretro].[wretro].[Card]")
-                .AppendLine("WHERE SessionId = @sessionId")
-                .AppendLine("ORDER By Position ASC")
+                .Append("SELECT Id, Title FROM [wretro].[wretro].[Card]").AppendLine()
+                .Append("WHERE SessionId = @sessionId").AppendLine()
+                .Append("ORDER By Position ASC")
                 .ToString();
 
             using (var connection = new SqlConnection(_connectionString))
@@ -38,7 +38,7 @@ namespace wRetroApi.Repositories
         public async Task CreateCard(Card card, Guid sessionId)
         {
             var query = new StringBuilder()
-                .Append("INSERT INTO [wretro].[wretro].[Card] (Id, Title, Position, SessionId)")
+                .Append("INSERT INTO c (Id, Title, Position, SessionId)")
                 .AppendLine("VALUES (@id, @title, @position, @sessionId)")
                 .ToString();
 
@@ -51,6 +51,19 @@ namespace wRetroApi.Repositories
                     position = card.Position,
                     sessionId,
                 }).ConfigureAwait(false);
+            }
+        }
+
+        public async Task UpdateTitle(Guid id, string title)
+        {
+            var query = new StringBuilder()
+                .Append("UPDATE [wretro].[wretro].[Card] SET Title = @title").AppendLine()
+                .Append("WHERE Id = @id")
+                .ToString();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.ExecuteAsync(query, new {title, id});
             }
         }
     }

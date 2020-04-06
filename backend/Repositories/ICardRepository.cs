@@ -14,5 +14,7 @@ namespace wRetroApi.Repositories
         Task<IEnumerable<Card>> GetCards(Guid sessionId);
 
         Task CreateCard(Card card, Guid sessionId);
+
+        Task UpdateTitle(Guid id, string title);
     }
 }
