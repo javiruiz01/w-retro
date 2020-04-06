@@ -1,8 +1,9 @@
 <script>
-  import CardTitle from './CardTitle.svelte';
-  import CommentBox from './CommentBox.svelte';
-  import Comment from './Comment.svelte';
   import { postComment, removeComment, updateComment } from '../http.client.js';
+  import CardTitle from './CardTitle.svelte';
+  import Comment from './Comment.svelte';
+  import CommentBox from './CommentBox.svelte';
+
   export let card;
 
   let showTextarea = false;

@@ -1,9 +1,9 @@
 <script>
-  import AddIcon from './icons/AddIcon.svelte';
-  import Button from './Button.svelte';
-  import CloseIcon from './icons/CloseIcon.svelte';
-  import SubmitIcon from './icons/SubmitIcon.svelte';
   import { tick } from 'svelte';
+  import AddIcon from './icons/Add.svelte';
+  import Button from './Button.svelte';
+  import CloseIcon from './icons/Close.svelte';
+  import SubmitIcon from './icons/Submit.svelte';
 
   export let onSubmit;
   let showTextarea = false;

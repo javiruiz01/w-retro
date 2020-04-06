@@ -1,11 +1,11 @@
 <script>
-  import Tailwind from './Tailwindcss.svelte';
+  import { initHubConnection, addToGroup } from './Hub.js';
+  import { onMount } from 'svelte';
+  import { sessionStore } from './Stores/SessionStore.js';
+  import Navbar from './components/Navbar.svelte';
   import RetroPage from './Pages/Retro.svelte';
   import SessionPage from './Pages/Session.svelte';
-  import Navbar from './components/Navbar.svelte';
-  import { sessionStore } from './Stores/SessionStore.js';
-  import { onMount } from 'svelte';
-  import { initHubConnection, addToGroup } from './Hub.js';
+  import Tailwind from './Tailwindcss.svelte';
 
   let ready = false;
 

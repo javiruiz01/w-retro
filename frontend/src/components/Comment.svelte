@@ -1,8 +1,8 @@
 <script>
   import { contextStore } from '../Stores/ContextMenuStore.js';
   import { onMount } from 'svelte';
-  import OptionsIcon from './icons/OptionsIcon.svelte';
-  import LikeIcon from './icons/LikeIcon.svelte';
+  import LikeIcon from './icons/Like.svelte';
+  import OptionsIcon from './icons/Options.svelte';
 
   export let element;
   export let deleteComment;

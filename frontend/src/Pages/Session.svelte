@@ -1,6 +1,6 @@
 <script>
-  import { sessionStore } from '../Stores/SessionStore.js';
   import { createSession } from '../http.client.js';
+  import { sessionStore } from '../Stores/SessionStore.js';
   import Button from '../components/Button.svelte';
 
   $: rawSession = '';

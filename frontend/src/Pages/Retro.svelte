@@ -1,8 +1,8 @@
 <script>
-  import Card from '../components/Card.svelte';
-  import { onMount } from 'svelte';
-  import { fetchCards } from '../http.client.js';
   import { cardsStore } from '../Stores/CardsStore.js';
+  import { fetchCards } from '../http.client.js';
+  import { onMount } from 'svelte';
+  import Card from '../components/Card.svelte';
 
   let columns = [];
 
