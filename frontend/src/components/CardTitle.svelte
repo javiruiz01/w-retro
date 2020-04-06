@@ -1,5 +1,6 @@
 <script>
   import { clickOutsideDirective } from '../directives/clickOutside.js';
+  import SubmitIcon from './icons/Submit.svelte';
   import { tick } from 'svelte';
   import EditIcon from './icons/Edit.svelte';
 
@@ -25,16 +26,21 @@
 </script>
 
 {#if isEditing}
-  <form on:submit|preventDefault={onSubmit}>
+  <form
+    class="relative"
+    on:submit|preventDefault={onSubmit}
+    use:clickOutsideDirective
+    on:clickOutside={closeEdit}>
     <input
       class="mb-2 w-full border border-gray-300 rounded-lg p-2 pl-4 block
       appearance-none leading-snug shadow-sm focus:outline-none
       focus:shadow-outline"
       type="text"
       bind:this={inputBox}
-      use:clickOutsideDirective
-      on:clickOutside={closeEdit}
       placeholder={title} />
+    <button class="appearance-none absolute top-0 right-0 m-3" tabindex="0" on:click={onSubmit}>
+      <SubmitIcon overrides="" />
+    </button>
   </form>
 {:else}
   <div
