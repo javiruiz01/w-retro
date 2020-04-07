@@ -1,5 +1,5 @@
 <script>
-  export let color = 'text-red-500';
+  export let color = 'text-red-500 hover:text-red-700';
 </script>
 
 <svg

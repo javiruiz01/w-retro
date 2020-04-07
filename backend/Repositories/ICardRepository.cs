@@ -16,5 +16,7 @@ namespace wRetroApi.Repositories
         Task CreateCard(Card card, Guid sessionId);
 
         Task UpdateTitle(Guid id, string title);
+
+        Task DeleteCard(Guid id);
     }
 }

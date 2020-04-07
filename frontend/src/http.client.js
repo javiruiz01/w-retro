@@ -53,3 +53,23 @@ export async function updateTitle(cardId, title) {
     (_) => void updateCards(roomId)
   );
 }
+
+export async function addColumn(position) {
+  const url = `${baseUrl}/cards`;
+  const body = { position, sessionId: roomId };
+  return await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers,
+  }).then((res) => {
+    updateCards(roomId);
+    return res.json();
+  });
+}
+
+export async function removeColumn(cardId) {
+  const url = `${baseUrl}/cards/${cardId}`;
+  await fetch(url, { method: 'DELETE', headers }).then(
+    (_) => void updateCards(roomId)
+  );
+}

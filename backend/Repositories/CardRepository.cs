@@ -38,7 +38,7 @@ namespace wRetroApi.Repositories
         public async Task CreateCard(Card card, Guid sessionId)
         {
             var query = new StringBuilder()
-                .Append("INSERT INTO c (Id, Title, Position, SessionId)")
+                .Append("INSERT INTO [wretro].[wretro].[Card] (Id, Title, Position, SessionId)")
                 .AppendLine("VALUES (@id, @title, @position, @sessionId)")
                 .ToString();
 
@@ -64,6 +64,22 @@ namespace wRetroApi.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.ExecuteAsync(query, new {title, id});
+            }
+        }
+
+        public async Task DeleteCard(Guid id)
+        {
+            var query = new StringBuilder()
+                .Append("DELETE FROM [wretro].[wretro].[Card]").AppendLine()
+                .Append("WHERE Id = @id")
+                .ToString();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.ExecuteAsync(query, new {id});
+            }
+
+            {
             }
         }
     }

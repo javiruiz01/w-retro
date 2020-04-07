@@ -1,17 +1,22 @@
 <script>
   import { cardsStore } from '../Stores/CardsStore.js';
-  import { fetchCards } from '../http.client.js';
+  import { addColumn, fetchCards } from '../http.client.js';
   import { onMount } from 'svelte';
   import Card from '../components/Card.svelte';
+  import FabButton from '../components/FabButton.svelte';
 
   let columns = [];
 
   onMount(
     () => void fetchCards().then(({ cards }) => void cardsStore.set(cards))
   );
+
   cardsStore.subscribe((value) => void (columns = value));
 
-  const getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
+  $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
+
+  const onClick = () =>
+    void addColumn(columns.length).then((res) => (columns = [...columns, res]));
 </script>
 
 <div class="flex flex-col h-full max-w-screen-lg mx-auto">
@@ -26,3 +31,4 @@
     {/each}
   </div>
 </div>
+<FabButton {onClick} />
