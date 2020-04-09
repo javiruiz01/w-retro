@@ -23,7 +23,7 @@ export default {
           isProd: production,
           API_URL: production
             ? 'http://api.wretro.javi.to'
-            : 'https://localhost:443',
+            : 'http://localhost:8080',
         },
       }),
     }),

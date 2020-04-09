@@ -45,7 +45,7 @@
 {:else}
   <div
     class="w-full text-gray-700 hover:text-teal-600 mb-2 cursor-pointer flex
-    items-center p-2"
+    items-center p-2 pr-0"
     on:click={toggleEditMode}>
     <span class="mr-1">{title}</span>
     <EditIcon />
