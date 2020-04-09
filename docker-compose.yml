@@ -4,6 +4,8 @@ services:
     build:
       context: backend
     image: dotnet-server
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
       - sql-server
     ports:

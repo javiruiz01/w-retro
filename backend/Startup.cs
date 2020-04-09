@@ -30,7 +30,7 @@ namespace wRetroApi
                     .AddPolicy(
                         AllowedOrigins,
                         builder => builder
-                            .WithOrigins("http://localhost:5000")
+                            .WithOrigins("http://localhost:5000", "https://wretro.javi.to")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials());
@@ -45,7 +45,8 @@ namespace wRetroApi
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionRepository, SessionRepository>();
             services.AddSignalR();
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                .AddSqlServer(Configuration["DatabaseSettings:ConnectionString"]);
             services.AddControllers();
         }
 

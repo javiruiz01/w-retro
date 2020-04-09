@@ -21,7 +21,9 @@ export default {
       process: JSON.stringify({
         env: {
           isProd: production,
-          API_URL: production ? 'holita' : 'http://localhost:8080',
+          API_URL: production
+            ? 'http://api.wretro.javi.to'
+            : 'https://localhost:443',
         },
       }),
     }),
