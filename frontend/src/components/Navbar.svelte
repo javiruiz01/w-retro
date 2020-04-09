@@ -1,10 +1,14 @@
 <script>
   import { sessionStore } from '../Stores/SessionStore.js';
+  import { cardsStore } from '../Stores/CardsStore.js';
 
   let sessionId = '';
   let showCopiedNotification = false;
 
-  const clearSession = () => void sessionStore.set('');
+  const clearSession = () => {
+    cardsStore.set([]);
+    sessionStore.set('');
+  };
   sessionStore.subscribe((value) => void (sessionId = value));
 
   const copySessionId = () => {
