@@ -1,6 +1,6 @@
 <script>
   import { cardsStore } from '../Stores/CardsStore.js';
-  import { addColumn, fetchCards } from '../http.client.js';
+  import { httpClient } from '../http.client.js';
   import { onMount } from 'svelte';
   import Card from '../components/Card.svelte';
   import EditableTitle from '../components/EditableTitle.svelte';
@@ -12,7 +12,7 @@
 
   onMount(
     () =>
-      void fetchCards().then(({ cards }) => {
+      void httpClient.fetchCards().then(({ cards }) => {
         isLoading = true;
         cardsStore.set(cards);
       })
@@ -26,7 +26,7 @@
   $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
 
   const onClick = () =>
-    void addColumn(columns.length).then(
+    void httpClient.addColumn(columns.length).then(
       (res) => void (columns = [...columns, res])
     );
 

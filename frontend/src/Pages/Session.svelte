@@ -1,5 +1,5 @@
 <script>
-  import { createSession } from '../http.client.js';
+  import { httpClient} from '../http.client.js';
   import { sessionStore } from '../Stores/SessionStore.js';
   import Button from '../components/Button.svelte';
 
@@ -7,7 +7,7 @@
 
   const handleSubmit = () => void sessionStore.set(rawSession);
   const createNewSession = async () =>
-    void sessionStore.set(await createSession());
+    void sessionStore.set(await httpClient.createSession());
 </script>
 
 <div class="grid grid-cols-1 grid-rows-2 h-full items-center">

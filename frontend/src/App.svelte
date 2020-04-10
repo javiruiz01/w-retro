@@ -1,5 +1,5 @@
 <script>
-  import { initHubConnection, addToGroup } from './Hub.js';
+  import { hubClient } from './hub.js';
   import { onMount } from 'svelte';
   import { sessionStore } from './Stores/SessionStore.js';
   import Navbar from './components/Navbar.svelte';
@@ -12,11 +12,11 @@
   sessionStore.subscribe((value) => {
     ready = !!value.trim();
     if (ready) {
-      addToGroup(value);
+      hubClient.addToGroup(value);
     }
   });
 
-  onMount(() => void initHubConnection());
+  onMount(() => void hubClient.initHubConnection());
 </script>
 
 <Navbar />

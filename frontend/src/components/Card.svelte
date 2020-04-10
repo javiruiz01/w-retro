@@ -1,11 +1,5 @@
 <script>
-  import {
-    postComment,
-    removeColumn,
-    removeComment,
-    updateComment,
-    updateTitle,
-  } from '../http.client.js';
+  import { httpClient } from '../http.client.js';
   import { slide } from 'svelte/transition';
   import EditableTitle from './EditableTitle.svelte';
   import Comment from './Comment.svelte';
@@ -18,26 +12,26 @@
   async function addComment(text) {
     if (!text.trim()) return;
 
-    const comment = await postComment(card.id, text);
+    const comment = await httpClient.postComment(card.id, text);
     card.comments = [...card.comments, comment];
   }
 
   function deleteComment(commentId) {
     card.comments = card.comments.filter(({ id }) => id !== commentId);
-    removeComment(commentId);
+    httpClient.removeComment(commentId);
   }
 
   function likeComment(comment) {
-    updateComment(comment);
+    httpClient.updateComment(comment);
   }
 
   function onUpdateTitle(title) {
     card.title = title;
-    updateTitle(card.id, title);
+    httpClient.updateTitle(card.id, title);
   }
 
   function removeCard() {
-    removeColumn(card.id);
+    httpClient.removeColumn(card.id);
   }
 </script>
 
