@@ -3,5 +3,9 @@ WORKDIR /db
 COPY . .
 ENV ACCEPT_EULA Y
 ENV SA_PASSWORD Patata1.
-RUN chmod +x preload.sh
+
+USER root
+RUN apt-get update -y && apt-get install -y dos2unix
+RUN chmod +x ./preload.sh && dos2unix ./preload.sh
+
 CMD ["/bin/bash", "-c", "./preload.sh & /opt/mssql/bin/sqlservr"]
