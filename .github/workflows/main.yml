@@ -27,10 +27,10 @@ jobs:
 
       - name: Build and push backend
         run: |
-          docker build -t ${{secrets.DOCKER_USER}}/wretro-api backend/Dockerfile
+          docker build -t ${{secrets.DOCKER_USER}}/wretro-api backend/
           docker push ${{secrets.DOCKER_USER}}/wretro-api
 
       - name: Build and push database
         run: |
-          docker build -t ${{secrets.DOCKER_USER}}/wretro-db database/Dockerfile
+          docker build -t ${{secrets.DOCKER_USER}}/wretro-db database/
           docker push ${{secrets.DOCKER_USER}}/wretro-db
