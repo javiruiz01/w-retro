@@ -22,7 +22,7 @@ export default {
         env: {
           isProd: production,
           API_URL: production
-            ? 'http://api.wretro.javi.to'
+            ? 'https://asura.javi.to'
             : 'http://localhost:8080',
         },
       }),

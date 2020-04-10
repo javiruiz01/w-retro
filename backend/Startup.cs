@@ -30,7 +30,7 @@ namespace wRetroApi
                     .AddPolicy(
                         AllowedOrigins,
                         builder => builder
-                            .WithOrigins("http://localhost:5000", "https://wretro.javi.to")
+                            .WithOrigins(Configuration["AllowedOrigins"])
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials());
