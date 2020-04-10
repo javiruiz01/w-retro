@@ -2,7 +2,6 @@ FROM mcr.microsoft.com/mssql/server:2019-latest
 WORKDIR /db
 COPY . .
 ENV ACCEPT_EULA Y
-ENV SA_PASSWORD Patata1.
 
 USER root
 RUN apt-get update -y && apt-get install -y dos2unix
