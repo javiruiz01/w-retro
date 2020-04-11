@@ -26,16 +26,16 @@ jobs:
 
       - name: Build and push backend
         run: |
-          docker build -t ${{secrets.DOCKER_USER}}/wretro-api:${{github.ref:10}} backend/
-          docker push ${{secrets.DOCKER_USER}}/wretro-api:${{github.ref:10}}
+          docker build -t ${{secrets.DOCKER_USER}}/wretro-api:${GITHUB_REF#refs/*/} backend/
+          docker push ${{secrets.DOCKER_USER}}/wretro-api:${GITHUB_REF#refs/*/}
 
       - name: Build and push database
         run: |
-          docker build -t ${{secrets.DOCKER_USER}}/wretro-db:${{github.ref:10}} database/
-          docker push ${{secrets.DOCKER_USER}}/wretro-db:${{github.ref:10}}
+          docker build -t ${{secrets.DOCKER_USER}}/wretro-db:${GITHUB_REF#refs/*/} database/
+          docker push ${{secrets.DOCKER_USER}}/wretro-db:${GITHUB_REF#refs/*/}
 
       - name: Deploy to server
         run: |
           echo $"${{secrets.SSH_KEY}}" >> .ssh_key
           chmod 400 .ssh_key
-          ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd projects/w-retro/; git pull; bash .github/deploy.sh ${{secrets.SA_PASSWORD}} ${{github.ref:10}}"
+          ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd projects/w-retro/; git pull; bash .github/deploy.sh ${{secrets.SA_PASSWORD}} ${GITHUB_REF#refs/*/}"
