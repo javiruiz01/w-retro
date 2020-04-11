@@ -1,0 +1,15 @@
+name: Release workflow
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  deploy:
+    name: CD
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh and docker-compose up
+        run: |
+          ssh -i ${{secrets.SSH_KEY}} ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker-compose down; docker-compose up;"

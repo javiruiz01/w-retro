@@ -1,9 +1,7 @@
 version: '3.2'
 services:
   api:
-    build:
-      context: backend
-    image: dotnet-server
+    image: jruiz/wretro-api:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
@@ -13,8 +11,6 @@ services:
 
   sql-server:
     container_name: sql-server
-    build:
-      context: database
+    image: jruiz/wretro-db:latest
     environment:
-      - SA_PASSWORD=Patata1.
-    image: sql-server
+      - SA_PASSWORD=${PG_PASSWORD}
