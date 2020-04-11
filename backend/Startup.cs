@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,7 +37,10 @@ namespace wRetroApi
                             .AllowCredentials());
             });
 
-            services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
+            services
+                .Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)))
+                .PostConfigure<DatabaseSettings>(myOptions =>
+                    myOptions.ConnectionString += $"Password={Environment.GetEnvironmentVariable("SA_PASSWORD")}");
             services.AddSingleton<IDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
