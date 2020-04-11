@@ -1,7 +1,5 @@
 #! /bin/bash
 
-cd projects/w-retro/
-git pull
 docker-compose down
 
 if [ -f ".env" ]
