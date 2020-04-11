@@ -6,9 +6,8 @@ name: wretro
 # events but only for the master branch
 on:
   push:
-    branches: [master, cicd]
-  pull_request:
-    branches: [master]
+    tags:
+      - '*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,9 +27,14 @@ jobs:
       - name: Build and push backend
         run: |
           docker build -t ${{secrets.DOCKER_USER}}/wretro-api backend/
-          docker push ${{secrets.DOCKER_USER}}/wretro-api
+          docker push ${{secrets.DOCKER_USER}}/wretro-api:${{github.ref}}
 
       - name: Build and push database
         run: |
           docker build -t ${{secrets.DOCKER_USER}}/wretro-db database/
-          docker push ${{secrets.DOCKER_USER}}/wretro-db
+          docker push ${{secrets.DOCKER_USER}}/wretro-db:${{github.ref}}
+      # - name: ssh and docker-compose up
+      #   run: |
+      #     echo $"${{secrets.SSH_KEY}}" >> .ssh_key
+      #     chmod 400 .ssh_key
+      #     ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd projects/w-retro/; git pull; docker-compose down; docker-compose up -d;"
