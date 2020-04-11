@@ -41,6 +41,7 @@
     <button
       class="appearance-none absolute top-0 right-0 m-3"
       tabindex="0"
+      type="button"
       on:click={onSubmit}>
       <SubmitIcon />
     </button>

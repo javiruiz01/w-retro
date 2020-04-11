@@ -9,9 +9,9 @@ DECLARE @CARD_ID_3 UNIQUEIDENTIFIER = N'7C28AD1F-601E-4E31-AEEF-5FCAE1B204B5';
 
 -- Session
 INSERT INTO [wretro].[Session]
-  (Id)
+  (Id, Title)
 VALUES
-  (@SESSION_ID);
+  (@SESSION_ID, 'Sprint for Warriors Team');
 
 -- Cards
 INSERT INTO [wretro].[Card]

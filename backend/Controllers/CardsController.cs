@@ -67,10 +67,6 @@ namespace wRetroApi.Controllers
         public string Text { get; set; }
     }
 
-    public class UpdateTitleDto
-    {
-        public string Text { get; set; }
-    }
 
     public class CreateCardDto
     {

@@ -1,4 +1,5 @@
 <script>
+  import { sessionStore } from '../Stores/SessionStore.js';
   import { cardsStore } from '../Stores/CardsStore.js';
   import { httpClient } from '../http.client.js';
   import { onMount } from 'svelte';
@@ -9,12 +10,14 @@
 
   let columns = [];
   let isLoading = true;
+  let retroTitle = '';
 
   onMount(
     () =>
-      void httpClient.fetchCards().then(({ cards }) => {
+      void httpClient.fetchSession().then(({ title, cards }) => {
         isLoading = true;
         cardsStore.set(cards);
+        sessionStore.update((value) => Object.assign({}, value, { title }));
       })
   );
 
@@ -23,14 +26,19 @@
     isLoading = false;
   });
 
+  sessionStore.subscribe(({ title }) => void (retroTitle = title));
+
   $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
 
   const onClick = () =>
-    void httpClient.addColumn(columns.length).then(
-      (res) => void (columns = [...columns, res])
-    );
+    void httpClient
+      .addColumn(columns.length)
+      .then((res) => void (columns = [...columns, res]));
 
-  const updateTitle = (title) => console.log('Coming soon, updating: ', title);
+  const updateTitle = (title) => {
+    retroTitle = title;
+    httpClient.updateSessionTitle(title);
+  };
 </script>
 
 <div class="flex flex-col h-full max-w-screen-lg mx-auto">
@@ -38,9 +46,9 @@
     <Loader />
   {:else}
     <div class="w-full sm:w-1/3">
-      <EditableTitle title="Sprint 6 retro" {updateTitle}>
+      <EditableTitle title={retroTitle} {updateTitle}>
         <h2 class="text-lg text-gray-700 hover:text-teal-600 leading-snug">
-          Sprint 6 retro
+          {retroTitle}
         </h2>
       </EditableTitle>
     </div>

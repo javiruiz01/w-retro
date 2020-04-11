@@ -25,14 +25,15 @@ namespace wRetroApi.Services
 
         public async Task<Session> GetSession(Guid sessionId)
         {
+            var session = await _sessionRepository.GetSession(sessionId);
             var cards = await _cardRepository.GetCards(sessionId);
-            cards = await Task.WhenAll(cards.Select(async card =>
+            session.Cards = await Task.WhenAll(cards.Select(async card =>
             {
                 card.Comments = await _commentRepository.GetComments(card.Id);
                 return card;
             }));
 
-            return new Session {Id = sessionId, Cards = cards};
+            return session;
         }
 
         public async Task<Guid> CreateSession()
@@ -46,14 +47,16 @@ namespace wRetroApi.Services
                     Comments = new[] {new Comment {Id = Guid.NewGuid(), Text = "Example Text", Likes = 0}}
                 });
 
-            var sessionId = Guid.NewGuid();
-            await _sessionRepository.CreateSession(sessionId);
+            var session = new Session {Id = Guid.NewGuid(), Title = "New title"};
+            await _sessionRepository.CreateSession(session.Id, session.Title);
             foreach (Card card in cards)
             {
-                await _cardRepository.CreateCard(card, sessionId);
+                await _cardRepository.CreateCard(card, session.Id);
             }
 
-            return sessionId;
+            return session.Id;
         }
+
+        public async Task UpdateTitle(Guid id, string title) => await _sessionRepository.UpdateTitle(id, title);
     }
 }

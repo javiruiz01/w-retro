@@ -9,10 +9,10 @@
 
   let ready = false;
 
-  sessionStore.subscribe((value) => {
-    ready = !!value.trim();
+  sessionStore.subscribe(({ id }) => {
+    ready = !!id.trim();
     if (ready) {
-      hubClient.addToGroup(value);
+      hubClient.addToGroup(id);
     }
   });
 

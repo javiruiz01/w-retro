@@ -5,6 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using wRetroApi.Models;
 using wRetroApi.Services;
 
 namespace wRetroApi.Controllers
@@ -33,6 +34,14 @@ namespace wRetroApi.Controllers
         {
             var session = await _sessionService.CreateSession();
             return Ok(session);
+        }
+
+        [Route("{id}")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateTitle(Guid id, [FromBody] UpdateTitleDto title)
+        {
+            await _sessionService.UpdateTitle(id, title.Text);
+            return Ok();
         }
     }
 }

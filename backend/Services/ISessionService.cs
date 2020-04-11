@@ -13,5 +13,7 @@ namespace wRetroApi.Services
         Task<Session> GetSession(Guid id);
 
         Task<Guid> CreateSession();
+
+        Task UpdateTitle(Guid id, string title);
     }
 }

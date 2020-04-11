@@ -7,7 +7,7 @@ let hubConnection;
 export const hubClient = {
   initHubConnection,
   addToGroup,
-  updateCards,
+  updateSession,
 };
 
 function initHubConnection() {
@@ -27,6 +27,6 @@ function addToGroup(session) {
   hubConnection.invoke('AddToGroup', session);
 }
 
-function updateCards(session) {
-  hubConnection.invoke('UpdateCards', session);
+function updateSession(session) {
+  hubConnection.invoke('UpdateSession', session);
 }

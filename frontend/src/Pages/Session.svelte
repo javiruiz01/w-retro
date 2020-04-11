@@ -1,13 +1,14 @@
 <script>
-  import { httpClient} from '../http.client.js';
+  import { httpClient } from '../http.client.js';
   import { sessionStore } from '../Stores/SessionStore.js';
   import Button from '../components/Button.svelte';
 
   $: rawSession = '';
 
-  const handleSubmit = () => void sessionStore.set(rawSession);
+  const handleSubmit = () => void sessionStore.set({ id: rawSession });
+
   const createNewSession = async () =>
-    void sessionStore.set(await httpClient.createSession());
+    void sessionStore.set({ id: await httpClient.createSession() });
 </script>
 
 <div class="grid grid-cols-1 grid-rows-2 h-full items-center">

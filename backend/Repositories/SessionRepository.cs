@@ -4,6 +4,7 @@
 
 using System;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
@@ -21,14 +22,38 @@ namespace wRetroApi.Repositories
             _connectionString = databaseSettings?.ConnectionString ?? throw new ArgumentNullException(nameof(databaseSettings));
         }
 
-        public async Task CreateSession(Guid id)
+        public async Task<Session> GetSession(Guid id)
         {
             var query = new StringBuilder()
-                .Append("INSERT INTO [wretro].[wretro].[Session] (Id)")
-                .AppendLine("VALUES (@id)")
+                .Append("SELECT Id, Title from [wretro].[wretro].[Session]").AppendLine()
+                .Append("WHERE Id = @id")
+                .ToString();
+
+            using var connection = new SqlConnection(_connectionString);
+            return (await connection.QueryAsync<Session>(query, new {id})).FirstOrDefault();
+        }
+
+        public async Task CreateSession(Guid id, string title)
+        {
+            var query = new StringBuilder()
+                .Append("INSERT INTO [wretro].[wretro].[Session] (Id, Title)")
+                .AppendLine("VALUES (@id, @title)")
                 .ToString();
             using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(query, new {id});
+            await connection.ExecuteAsync(query, new {id, title});
+        }
+
+        public async Task UpdateTitle(Guid id, string title)
+        {
+            var query = new StringBuilder()
+                .Append("UPDATE [wretro].[wretro].[Session] SET Title = @title").AppendLine()
+                .Append("WHERE Id = @id")
+                .ToString();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.ExecuteAsync(query, new {title, id});
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace wRetroApi.Services
             await Clients.Group(session).SendAsync("Connected", $"{Context.ConnectionId} has joined the group {session}");
         }
 
-        public async Task UpdateCards(Guid rawSession)
+        public async Task UpdateSession(Guid rawSession)
         {
             var state = await _sessionService.GetSession(rawSession);
             await Clients.Group(rawSession.ToString()).SendAsync("Update", state);
