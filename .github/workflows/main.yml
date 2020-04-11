@@ -26,12 +26,12 @@ jobs:
 
       - name: Build and push backend
         run: |
-          docker build -t ${{secrets.DOCKER_USER}}/wretro-api backend/
+          docker build -t ${{secrets.DOCKER_USER}}/wretro-api:${{github.ref}} backend/
           docker push ${{secrets.DOCKER_USER}}/wretro-api:${{github.ref}}
 
       - name: Build and push database
         run: |
-          docker build -t ${{secrets.DOCKER_USER}}/wretro-db database/
+          docker build -t ${{secrets.DOCKER_USER}}/wretro-db:${{github.ref}} database/
           docker push ${{secrets.DOCKER_USER}}/wretro-db:${{github.ref}}
 
       - name: Deploy to server
