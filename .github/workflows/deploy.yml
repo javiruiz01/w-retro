@@ -12,4 +12,5 @@ jobs:
     steps:
       - name: ssh and docker-compose up
         run: |
-          ssh -i ${{secrets.SSH_KEY}} ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker-compose down; docker-compose up;"
+          echo $"${{secrets.SSH_KEY}}" >> .ssh_key
+          ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker-compose down; docker-compose up;"
