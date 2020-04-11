@@ -33,8 +33,9 @@ jobs:
         run: |
           docker build -t ${{secrets.DOCKER_USER}}/wretro-db database/
           docker push ${{secrets.DOCKER_USER}}/wretro-db:${{github.ref}}
-      # - name: ssh and docker-compose up
-      #   run: |
-      #     echo $"${{secrets.SSH_KEY}}" >> .ssh_key
-      #     chmod 400 .ssh_key
-      #     ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd projects/w-retro/; git pull; docker-compose down; docker-compose up -d;"
+
+      - name: Deploy to server
+        run: |
+          echo $"${{secrets.SSH_KEY}}" >> .ssh_key
+          chmod 400 .ssh_key
+          ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd projects/w-retro/; git pull; bash .github/deploy.sh ${{PG_PASSWORD}} ${{github.ref}}"
