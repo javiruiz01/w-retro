@@ -14,4 +14,4 @@ jobs:
         run: |
           echo $"${{secrets.SSH_KEY}}" >> .ssh_key
           chmod 400 .ssh_key
-          ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker-compose down; docker-compose up;"
+          ssh -i .ssh_key -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd projects/w-retro/; git pull origin cicd; docker-compose down; docker-compose up;"
