@@ -3,9 +3,9 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/fc3af58e-f95f-4218-9b29-cad54b024ec7/deploy-status)](https://app.netlify.com/sites/infallible-lumiere-72967d/deploys)
 ![wretro](https://github.com/javiruiz01/w-retro/workflows/wretro/badge.svg)
 
-<p align="center">
-  <img src="./.github/docs/landing.png" alt="landing" width="270" />
-  <img src="./.github/docs/retro.png" alt="retro page" width="270" />
+<p>
+  <img src="./.github/docs/landing.png" alt="landing" width="425" />
+  <img src="./.github/docs/retro.png" alt="retro page" width="425" />
 </p>
 
 Just another fun project to be used while you and your team do your [retrospectives](https://www.scrum.org/resources/what-is-a-sprint-retrospective), or for whatever you can think of.
