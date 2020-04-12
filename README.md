@@ -15,7 +15,7 @@ http://wretro.javi.to/
 
 - Frontend:
   - [Svelte](https://svelte.dev/)
-  - [TailwindCss](https://tailwindcss.com/)
+  - [Tailwind CSS](https://tailwindcss.com/)
 - Backend:
   - [.NET Core 3.1](https://dotnet.microsoft.com/)
 - Database:
