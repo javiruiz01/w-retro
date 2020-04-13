@@ -26,6 +26,8 @@ namespace wRetroApi.Services
         public async Task<Session> GetSession(Guid sessionId)
         {
             var session = await _sessionRepository.GetSession(sessionId);
+            if (session == null) return null;
+
             var cards = await _cardRepository.GetCards(sessionId);
             session.Cards = await Task.WhenAll(cards.Select(async card =>
             {

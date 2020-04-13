@@ -26,7 +26,12 @@ async function createSession() {
 
 async function fetchSession() {
   const url = `${baseUrl}/session/${roomId}`;
-  return await fetch(url).then((res) => res.json());
+  return await fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error();
+      return res.json();
+    })
+    .catch((_) => null);
 }
 
 async function postComment(cardId, text) {

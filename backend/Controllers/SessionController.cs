@@ -25,7 +25,13 @@ namespace wRetroApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSession(Guid id)
         {
-            return Ok(await _sessionService.GetSession(id));
+            var session = await _sessionService.GetSession(id);
+            if (session == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(session);
         }
 
         [Route("")]

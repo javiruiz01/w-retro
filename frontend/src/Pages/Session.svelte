@@ -5,7 +5,10 @@
 
   $: rawSession = '';
 
-  const handleSubmit = () => void sessionStore.set({ id: rawSession });
+  const handleSubmit = () =>
+    void sessionStore.update((value) =>
+      Object.assign({}, value, { id: rawSession })
+    );
 
   const createNewSession = async () =>
     void sessionStore.set({ id: await httpClient.createSession() });
