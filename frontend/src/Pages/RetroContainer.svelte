@@ -4,8 +4,8 @@
   import { hubClient } from '../hub.js';
   import { onMount } from 'svelte';
   import { sessionStore, emptySession } from '../Stores/SessionStore.js';
-  import Button from '../components/Button.svelte';
   import Loader from '../components/Loader.svelte';
+  import NotFound from '../components/NotFound.svelte';
   import RetroPage from './Retro.svelte';
 
   let columns = [];
@@ -21,6 +21,7 @@
       } else {
         notify(session);
       }
+
       isLoading = false;
     });
   });
@@ -40,26 +41,7 @@
   {#if isLoading}
     <Loader />
   {:else if doesNotExist}
-    <div class="flex flex-col justify-center items-center mt-auto mb-auto">
-      <img
-        style="max-width: 400px;"
-        class="w-full"
-        src="assets/icons/empty.svg"
-        alt="empty image" />
-      <div class="flex flex-col justify-center items-center mt-6">
-        <span class="text-md text-gray-700">
-          Oops, we found nothing for that id
-        </span>
-        <div class="mt-2">
-          <Button
-            onClick={goBack}
-            override="text-gray-900 font-semibold hover:text-white bg-teal-500
-            hover:bg-teal-800 p-4">
-            Go back
-          </Button>
-        </div>
-      </div>
-    </div>
+    <NotFound onButtonClick={goBack} />
   {:else}
     <RetroPage />
   {/if}
