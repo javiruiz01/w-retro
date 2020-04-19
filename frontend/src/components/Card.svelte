@@ -2,7 +2,7 @@
   import { httpClient } from '../http.client.js';
   import { slide } from 'svelte/transition';
   import EditableTitle from './EditableTitle.svelte';
-  import Comment from './Comment.svelte';
+  import CommentsContainer from './CommentsContainer.svelte';
   import CommentBox from './CommentBox.svelte';
 
   export let card;
@@ -69,11 +69,5 @@
     </button>
   </div>
 
-  <div class="pl-8 pr-6">
-    {#each card.comments as element}
-      <div transition:slide|local={{ duration: 300 }} class="mt-2 w-full">
-        <Comment {element} {deleteComment} {likeComment} />
-      </div>
-    {/each}
-  </div>
+  <CommentsContainer comments={card.comments} {deleteComment} {likeComment} />
 </div>
