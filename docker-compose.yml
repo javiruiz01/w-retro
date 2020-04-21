@@ -1,9 +1,11 @@
 version: '3.2'
 services:
   api:
+    container_name: api
     image: jruiz/wretro-api:${IMAGE_TAG}
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - SA_PASSWORD=${SA_PASSWORD}
     depends_on:
       - sql-server
     ports:
@@ -14,5 +16,5 @@ services:
     container_name: sql-server
     image: jruiz/wretro-db:${IMAGE_TAG}
     environment:
-      - SA_PASSWORD=${PG_PASSWORD}
+      - SA_PASSWORD=${SA_PASSWORD}
     restart: always
