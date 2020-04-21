@@ -6,54 +6,33 @@
   export let deleteComment;
   export let likeComment;
 
-  let position = 0;
-  const dataTransferType = 'text/plain';
-  $: ids = comments.map(({ id }) => id);
+  let dragging = true;
 
-  function onDragStart(event) {
-    event.dataTransfer.setData(dataTransferType, event.target.id);
+  function onMouseDown(event) {
+    // Initiate drag event
+    dragging = true;
+
+    console.log(event.target);
+    const { x, y } = event.target.getBoundingClientRect();
+
+    event.target.style.position = 'absolute';
+    event.target.style.transform = `translate(${x}px, ${y}px)`;
+    event.target.style.transitionDuration = '1s';
   }
 
-  function onDragEnter(event, idx) {
-    event.dataTransfer.dropEffect = 'move';
-
-    console.log(event);
-    position = idx;
-
-    event.target.classList.add('bg-gray-400');
-  }
-
-  function onDragLeave(event) {
-    event.target.classList.remove('bg-gray-400');
-  }
-
-  function onDrop(event) {
-    event.target.classList.remove('bg-gray-400');
-
-    const commentId = event.dataTransfer.getData(dataTransferType);
-    const draggedElement = comments.find(({ id }) => id === commentId);
-    const otherElements = comments.filter(({ id }) => id !== commentId);
-
-    comments = [
-      ...otherElements.slice(0, position),
-      draggedElement,
-      ...otherElements.slice(position),
-    ];
-
-    event.dataTransfer.clearData(dataTransferType);
+  function onMouseMove(event) {}
+  function onMouseUp(event) {
+    dragging = false;
   }
 </script>
 
 <div class="pl-8 pr-6">
   {#each comments as element, idx}
     <div
+      on:mousedown|preventDefault={onMouseDown}
+      on:mousemove|preventDefault={onMouseMove}
+      on:mouseup|preventDefault={onMouseUp}
       id={element.id}
-      draggable="true"
-      on:dragstart={onDragStart}
-      on:dragover|preventDefault={() => {}}
-      on:drop|preventDefault={onDrop}
-      on:dragenter|preventDefault={($event) => onDragEnter($event, idx)}
-      on:dragleave|preventDefault={onDragLeave}
       transition:slide|local={{ duration: 300 }}
       class="mt-2 w-full">
       <Comment {element} {deleteComment} {likeComment} />
