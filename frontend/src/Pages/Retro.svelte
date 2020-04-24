@@ -98,7 +98,7 @@
   </EditableTitle>
 </div>
 <div
-  class="intersection w-full h-full relative"
+  class="intersection w-full h-full"
   class:left-shadow={showLeftShadow}
   class:right-shadow={showRightShadow}>
   <div

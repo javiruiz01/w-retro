@@ -10,13 +10,12 @@
 
   let menu;
   let optionsButton;
-  let menuVisible = false;
 
-  contextStore.subscribe(() => void (menu && toggleMenu()));
+  contextStore.subscribe(() => void (menu && toggleMenu(false)));
 
   function onDeleteComment() {
     deleteComment(element.id);
-    toggleMenu();
+    toggleMenu(false);
   }
 
   function onLikeComment() {
@@ -31,21 +30,20 @@
     setPosition({ left, top });
   }
 
-  function openContextMenu(event) {
+  function openContextMenu({ pageX, pageY }) {
     contextStore.set(element.id);
-    const origin = { left: event.pageX, top: event.pageY };
+    const origin = { left: pageX, top: pageY };
     setPosition(origin);
-  }
-
-  function toggleMenu(command) {
-    menu.style.display = command === 'show' ? 'block' : 'none';
-    menuVisible = !menuVisible;
   }
 
   function setPosition({ top, left }) {
     menu.style.left = `${left}px`;
     menu.style.top = `${top}px`;
-    toggleMenu('show');
+    toggleMenu(true);
+  }
+
+  function toggleMenu(show) {
+    menu.style.display = show ? 'block' : 'none';
   }
 </script>
 

@@ -1,8 +1,8 @@
 <script>
   import { httpClient } from '../http.client.js';
-  import { slide } from 'svelte/transition';
+
+  import DraggableContainer from './DraggableContainer.svelte';
   import EditableTitle from './EditableTitle.svelte';
-  import CommentsContainer from './CommentsContainer.svelte';
   import CommentBox from './CommentBox.svelte';
 
   export let card;
@@ -43,9 +43,8 @@
 
 <div
   id="cardContainer"
-  class="h-full flex flex-col py-8 rounded-lg bg-white
-  border-gray-400 flex align-center w-full shadow-md overflow-y-scroll
-  scrollable-container">
+  class="h-full flex flex-col py-8 rounded-lg bg-white border-gray-400 flex
+  align-center w-full shadow-md overflow-y-scroll scrollable-container">
   <div class="relative sticky bg-white -top-2 z-20 pl-8 pr-6">
     <div class="mb-2">
       <EditableTitle title={card.title} updateTitle={onUpdateTitle}>
@@ -69,5 +68,5 @@
     </button>
   </div>
 
-  <CommentsContainer comments={card.comments} {deleteComment} {likeComment} />
+  <DraggableContainer {card} {deleteComment} {likeComment} />
 </div>
