@@ -77,7 +77,7 @@
 
 <div
   bind:this={menu}
-  class="contextmenu absolute hidden shadow-lg cursor-pointer rounded-tr-lg
+  class="contextmenu fixed hidden shadow-lg cursor-pointer rounded-tr-lg
   rounded-b-lg border-2 z-20">
   <ul tabindex="0">
     <li
