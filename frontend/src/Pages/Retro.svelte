@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { cardsStore } from '../Stores/CardsStore.js';
   import { httpClient } from '../http.client.js';
   import { sessionStore } from '../Stores/SessionStore.js';
@@ -8,9 +9,37 @@
 
   let columns = [];
   let retroTitle = '';
+  let observer;
+  let showRightShadow = false;
+  let showLeftShadow = false;
 
   cardsStore.subscribe((value) => void (columns = value));
   sessionStore.subscribe(({ title }) => void (retroTitle = title));
+
+  onMount(() => {
+    const options = {
+      root: document.querySelector('.intersection'),
+      threshold: 1.0,
+    };
+
+    observer = new IntersectionObserver(
+      (entries) =>
+        void entries.forEach((entry) => {
+          switch (entry.target.id) {
+            case 'begin':
+              showLeftShadow = !entry.isIntersecting;
+              break;
+            case 'end':
+              showRightShadow = !entry.isIntersecting;
+              break;
+          }
+        }),
+      options
+    );
+
+    observer.observe(document.querySelector('#begin'));
+    observer.observe(document.querySelector('#end'));
+  });
 
   $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
 
@@ -68,15 +97,20 @@
     </h2>
   </EditableTitle>
 </div>
-<div class="w-full h-full relative left-shadow right-shadow">
+<div
+  class="intersection w-full h-full relative"
+  class:left-shadow={showLeftShadow}
+  class:right-shadow={showRightShadow}>
   <div
     class="mt-4 overflow-x-scroll scrollable-container h-full pb-2 pl-1 flex
     h-full">
+    <div id="begin" />
     {#each columns as card, idx}
       <div class="w-full min-w-13 {getMargin(idx)}">
         <Card {card} />
       </div>
     {/each}
+    <div id="end" />
   </div>
 </div>
 <FabButton {onClick} />
