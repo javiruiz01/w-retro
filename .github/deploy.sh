@@ -7,7 +7,7 @@ then
   rm .env
 fi
 
-PG_PASSWORD=$1
+SA_PASSWORD=$1
 DOCKER_TAG=$2
 
 echo "SA_PASSWORD=$SA_PASSWORD" >> .env
