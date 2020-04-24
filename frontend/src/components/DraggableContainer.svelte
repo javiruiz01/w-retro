@@ -5,6 +5,7 @@
   export let comments;
   export let deleteComment;
   export let likeComment;
+  export let updateCommentList;
 
   let draggedOverIdx;
   let isAvailableDropzone = false;
@@ -25,11 +26,12 @@
     event.preventDefault();
 
     const rest = comments.filter(({ id }) => data !== id);
-    comments = [
+    const ordered = [
       ...rest.slice(0, draggedOverIdx),
       element,
       ...rest.slice(draggedOverIdx),
-    ];
+    ].map((comment, idx) => Object.assign({}, comment, { position: idx }));
+    updateCommentList(ordered);
   }
 </script>
 

@@ -9,7 +9,6 @@
   export let card;
 
   let showTextarea = false;
-  $: comments = card.comments;
 
   async function addComment(text) {
     if (!text.trim()) return;
@@ -17,18 +16,23 @@
     const comment = await httpClient.postComment(
       card.id,
       text,
-      comments.length
+      card.comments.length
     );
-    comments = [...comments, comment];
+    card.comments = [...card.comments, comment];
   }
 
   function deleteComment(commentId) {
-    comments = comments.filter(({ id }) => id !== commentId);
+    card.comments = card.comments.filter(({ id }) => id !== commentId);
     httpClient.removeComment(commentId);
   }
 
   function likeComment(comment) {
     httpClient.updateComment(comment);
+  }
+
+  function updateCommentList(orderedComments) {
+    card.comments = orderedComments;
+    httpClient.updateCard(card);
   }
 
   function onUpdateTitle(title) {
@@ -67,5 +71,9 @@
     </button>
   </div>
 
-  <DraggableContainer {comments} {deleteComment} {likeComment} />
+  <DraggableContainer
+    comments={card.comments}
+    {deleteComment}
+    {likeComment}
+    {updateCommentList} />
 </div>

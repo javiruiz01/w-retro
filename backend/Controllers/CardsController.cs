@@ -56,7 +56,7 @@ namespace wRetroApi.Controllers
 
         [Route("{id}")]
         [HttpPut]
-        public async Task<IActionResult> UpdateTitle(Guid id, [FromBody] Card card)
+        public async Task<IActionResult> UpdateCard(Guid id, [FromBody] Card card)
         {
             await _cardService.UpdateCard(id, card);
             return Ok();
