@@ -43,7 +43,7 @@
 
 <div
   id="cardContainer"
-  class="h-full flex flex-col py-8 bg-transparent-white rounded-lg
+  class="h-full flex flex-col py-8 rounded-lg bg-white
   border-gray-400 flex align-center w-full shadow-md overflow-y-scroll
   scrollable-container">
   <div class="relative sticky bg-white -top-2 z-20 pl-8 pr-6">
