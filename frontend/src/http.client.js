@@ -16,7 +16,7 @@ export const httpClient = {
   removeComment,
   updateComment,
   updateSessionTitle,
-  updateTitle,
+  updateCard,
 };
 
 async function createSession() {
@@ -34,9 +34,9 @@ async function fetchSession() {
     .catch((_) => null);
 }
 
-async function postComment(cardId, text) {
+async function postComment(cardId, text, position) {
   const url = `${baseUrl}/cards/${cardId}`;
-  const body = { text };
+  const body = { text, position };
   return await fetch(url, {
     method: 'POST',
     body: JSON.stringify(body),
@@ -63,10 +63,9 @@ async function updateComment(comment) {
   }).then((_) => void hubClient.updateSession(roomId));
 }
 
-async function updateTitle(cardId, title) {
-  const url = `${baseUrl}/cards/${cardId}`;
-  const body = { text: title };
-  await fetch(url, { method: 'PUT', body: JSON.stringify(body), headers }).then(
+async function updateCard(card) {
+  const url = `${baseUrl}/cards/${card.id}`;
+  await fetch(url, { method: 'PUT', body: JSON.stringify(card), headers }).then(
     (_) => void hubClient.updateSession(roomId)
   );
 }

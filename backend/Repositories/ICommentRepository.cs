@@ -13,7 +13,7 @@ namespace wRetroApi.Repositories
     {
         Task<IEnumerable<Comment>> GetComments(Guid cardId);
 
-        Task<Comment> CreateComment(Guid cardId, string text);
+        Task<Comment> CreateComment(Guid cardId, string text, int position);
 
         Task UpdateComment(Guid id, Comment comment);
 

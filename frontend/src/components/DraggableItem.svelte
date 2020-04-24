@@ -15,7 +15,6 @@
     dragging = true;
     notifyDragging(dragging);
     event.dataTransfer.setData('text/plain', element.id);
-    event.target.style.cursor = 'grabbing';
     event.dataTransfer.effectAllowed = 'all';
   }
 
@@ -31,8 +30,8 @@
   bind:this={commentElement}
   on:dragstart={onDragStart}
   on:dragend={onDragEnd}
-  transition:slide|local={{ duration: 300 }}
   class:opacity-25={dragging}
+  style="cursor: grab;"
   class="mt-2 w-full">
   <Comment {element} {deleteComment} {likeComment} />
 </div>

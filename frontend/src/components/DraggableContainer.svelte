@@ -2,7 +2,7 @@
   import { slide } from 'svelte/transition';
   import DraggableItem from './DraggableItem.svelte';
 
-  export let card;
+  export let comments;
   export let deleteComment;
   export let likeComment;
 
@@ -17,15 +17,15 @@
 
   function onDrop(event) {
     const data = event.dataTransfer.getData('text/plain');
-    const element = card.comments.find(({ id }) => data === id);
+    const element = comments.find(({ id }) => data === id);
 
     if (!element) {
       return;
     }
     event.preventDefault();
 
-    const rest = card.comments.filter(({ id }) => data !== id);
-    card.comments = [
+    const rest = comments.filter(({ id }) => data !== id);
+    comments = [
       ...rest.slice(0, draggedOverIdx),
       element,
       ...rest.slice(draggedOverIdx),
@@ -34,11 +34,11 @@
 </script>
 
 <div class="pl-8 pr-6 h-full" on:dragover={onDragOver} on:drop={onDrop}>
-  {#each card.comments as element, idx}
+  {#each comments as element, idx}
     <div
       on:dragover={() => void (draggedOverIdx = idx)}
       transition:slide|local={{ duration: 300 }}
-      class="mt-2 w-full">
+      class="w-full">
       <DraggableItem
         {element}
         {deleteComment}

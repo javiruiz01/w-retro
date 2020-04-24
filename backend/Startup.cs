@@ -44,6 +44,7 @@ namespace wRetroApi
             services.AddSingleton<IDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
+            services.AddScoped<ICardService, CardService>();
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ISessionService, SessionService>();
