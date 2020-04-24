@@ -41,7 +41,7 @@
     observer.observe(document.querySelector('#end'));
   });
 
-  $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-0' : 'mr-8');
+  $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-1' : 'mr-8');
 
   const onClick = () =>
     void httpClient
