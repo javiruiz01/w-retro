@@ -102,13 +102,18 @@
   class:left-shadow={showLeftShadow}
   class:right-shadow={showRightShadow}>
   <div
-    class="mt-4 overflow-x-scroll scrollable-container h-full pb-2 pl-1 flex
+    class="mt-4 overflow-x-scroll scrollable-container h-full pb-2 px-1 flex
     h-full">
     <div id="begin" />
     {#each columns as card, idx}
-      <div class="w-full min-w-13 {getMargin(idx)}">
+      <div class="w-full min-w-13">
         <Card {card} />
       </div>
+      {#if idx !== columns.length - 1}
+        <div class="px-4" />
+      {:else}
+        <div class="pr-1" />
+      {/if}
     {/each}
     <div id="end" />
   </div>
