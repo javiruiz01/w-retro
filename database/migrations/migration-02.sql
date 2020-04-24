@@ -31,31 +31,31 @@ VALUES
 
 -- Comments
 INSERT INTO [wretro].[Comment]
-  (Id, Text, Likes, CardId)
+  (Id, Text, Likes, CardId, Position)
 VALUES
-  ('797CDEF9-8FBD-4F1C-B8AA-D679B235B85D', 'So much work!', 0, @CARD_ID_1);
+  ('797CDEF9-8FBD-4F1C-B8AA-D679B235B85D', 'So much work!', 0, @CARD_ID_1, 0);
 
 INSERT INTO [wretro].[Comment]
-  (Id, Text, Likes, CardId)
+  (Id, Text, Likes, CardId, Position)
 VALUES
-  ('F408F188-5C35-473A-8275-B2D2218BF0DA', 'Good things are good', 0, @CARD_ID_1);
+  ('F408F188-5C35-473A-8275-B2D2218BF0DA', 'Good things are good', 0, @CARD_ID_1, 1);
 
 INSERT INTO [wretro].[Comment]
-  (Id, Text, Likes, CardId)
+  (Id, Text, Likes, CardId, Position)
 VALUES
-  ('65CE9F39-6C85-4238-A0E2-0D7C67602765', 'Innovation week canceled', 0, @CARD_ID_2);
+  ('65CE9F39-6C85-4238-A0E2-0D7C67602765', 'Innovation week canceled', 0, @CARD_ID_2, 0);
 
 INSERT INTO [wretro].[Comment]
-  (Id, Text, Likes, CardId)
+  (Id, Text, Likes, CardId, Position)
 VALUES
-  ('DB37F5F9-50BF-407C-975F-DAE47F55C246', 'Innovation week canceled', 0, @CARD_ID_2);
+  ('DB37F5F9-50BF-407C-975F-DAE47F55C246', 'Innovation week canceled', 0, @CARD_ID_2, 1);
 
 INSERT INTO [wretro].[Comment]
-  (Id, Text, Likes, CardId)
+  (Id, Text, Likes, CardId, Position)
 VALUES
-  ('D5BB2620-3257-435D-A130-25E34AE6803D', 'Something about infra', 0, @CARD_ID_3);
+  ('D5BB2620-3257-435D-A130-25E34AE6803D', 'Something about infra', 0, @CARD_ID_3, 0);
 
 INSERT INTO [wretro].[Comment]
-  (Id, Text, Likes, CardId)
+  (Id, Text, Likes, CardId, Position)
 VALUES
-  ('1730E882-B979-47F6-96C6-B8272D4B7716', 'The planning', 0, @CARD_ID_3);
+  ('1730E882-B979-47F6-96C6-B8272D4B7716', 'The planning', 0, @CARD_ID_3, 1);

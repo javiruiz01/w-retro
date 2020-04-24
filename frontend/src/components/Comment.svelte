@@ -10,13 +10,12 @@
 
   let menu;
   let optionsButton;
-  let menuVisible = false;
 
-  contextStore.subscribe(() => void (menu && toggleMenu()));
+  contextStore.subscribe(() => void (menu && toggleMenu(false)));
 
   function onDeleteComment() {
     deleteComment(element.id);
-    toggleMenu();
+    toggleMenu(false);
   }
 
   function onLikeComment() {
@@ -31,27 +30,26 @@
     setPosition({ left, top });
   }
 
-  function openContextMenu(event) {
+  function openContextMenu({ pageX, pageY }) {
     contextStore.set(element.id);
-    const origin = { left: event.pageX, top: event.pageY };
+    const origin = { left: pageX, top: pageY };
     setPosition(origin);
-  }
-
-  function toggleMenu(command) {
-    menu.style.display = command === 'show' ? 'block' : 'none';
-    menuVisible = !menuVisible;
   }
 
   function setPosition({ top, left }) {
     menu.style.left = `${left}px`;
     menu.style.top = `${top}px`;
-    toggleMenu('show');
+    toggleMenu(true);
+  }
+
+  function toggleMenu(show) {
+    menu.style.display = show ? 'block' : 'none';
   }
 </script>
 
 <div
   class="relative text-gray-800 rounded h-auto w-full flex items-center border
-  border-solid border-gray-400">
+  border-solid border-gray-400 bg-white">
   <div
     class="py-4 pl-4 pr-8 w-full"
     on:contextmenu|preventDefault={openContextMenu}>
@@ -85,14 +83,14 @@
     <li
       on:click={onLikeComment}
       tabindex="0"
-      class=" p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600
+      class="p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600
       focus:bg-green-600 focus:text-white ">
       Like comment
     </li>
     <li
       tabindex="0"
       on:click={onDeleteComment}
-      class=" p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
+      class="p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
       focus:bg-red-500 focus:text-white ">
       Remove comment
     </li>

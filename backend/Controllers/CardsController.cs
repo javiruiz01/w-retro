@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using wRetroApi.Models;
 using wRetroApi.Repositories;
+using wRetroApi.Services;
 
 namespace wRetroApi.Controllers
 {
@@ -14,12 +15,12 @@ namespace wRetroApi.Controllers
     [Route("[controller]")]
     public class CardsController : ControllerBase
     {
-        private readonly ICardRepository _cardRepository;
+        private readonly ICardService _cardService;
         private readonly ICommentRepository _commentRepository;
 
-        public CardsController(ICardRepository cardRepository, ICommentRepository commentRepository)
+        public CardsController(ICardService cardService, ICommentRepository commentRepository)
         {
-            _cardRepository = cardRepository ?? throw new ArgumentNullException(nameof(cardRepository));
+            _cardService = cardService ?? throw new ArgumentNullException(nameof(cardService));
             _commentRepository = commentRepository ?? throw new ArgumentNullException(nameof(commentRepository));
         }
 
@@ -34,7 +35,7 @@ namespace wRetroApi.Controllers
                 Position = cardInfo.Position,
                 Comments = new Comment[] { },
             };
-            await _cardRepository.CreateCard(card, cardInfo.SessionId);
+            await _cardService.CreateCard(card, cardInfo.SessionId);
             return Ok(card);
         }
 
@@ -42,7 +43,7 @@ namespace wRetroApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteCard(Guid id)
         {
-            await _cardRepository.DeleteCard(id);
+            await _cardService.DeleteCard(id);
             return Ok();
         }
 
@@ -50,14 +51,14 @@ namespace wRetroApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateComment(Guid id, [FromBody] CreateCommentDto comment)
         {
-            return Ok(await _commentRepository.CreateComment(id, comment.Text));
+            return Ok(await _commentRepository.CreateComment(id, comment.Text, comment.Position));
         }
 
         [Route("{id}")]
         [HttpPut]
-        public async Task<IActionResult> UpdateTitle(Guid id, [FromBody] UpdateTitleDto title)
+        public async Task<IActionResult> UpdateCard(Guid id, [FromBody] Card card)
         {
-            await _cardRepository.UpdateTitle(id, title.Text);
+            await _cardService.UpdateCard(id, card);
             return Ok();
         }
     }
@@ -65,6 +66,8 @@ namespace wRetroApi.Controllers
     public class CreateCommentDto
     {
         public string Text { get; set; }
+
+        public int Position { get; set; }
     }
 
 

@@ -13,5 +13,7 @@ namespace wRetroApi.Models
         public string Text { get; set; }
 
         public int Likes { get; set; }
+
+        public int Position { get; set; }
     }
 }

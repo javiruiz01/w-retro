@@ -54,16 +54,16 @@ namespace wRetroApi.Repositories
             }
         }
 
-        public async Task UpdateTitle(Guid id, string title)
+        public async Task UpdateCard(Guid id, Card card)
         {
             var query = new StringBuilder()
-                .Append("UPDATE [wretro].[wretro].[Card] SET Title = @title").AppendLine()
+                .Append("UPDATE [wretro].[wretro].[Card] SET Title = @title, Position = @position").AppendLine()
                 .Append("WHERE Id = @id")
                 .ToString();
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                await connection.ExecuteAsync(query, new {title, id});
+                await connection.ExecuteAsync(query, card);
             }
         }
 
