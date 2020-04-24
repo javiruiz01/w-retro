@@ -6,17 +6,23 @@
   export let element;
   export let deleteComment;
   export let likeComment;
+  export let notifyDragging;
 
+  let dragging = false;
   let commentElement;
 
   function onDragStart(event) {
+    dragging = true;
+    notifyDragging(dragging);
     event.dataTransfer.setData('text/plain', element.id);
-    event.dataTransfer.dropEffect = 'move';
-    commentElement.style.backgroundColor = 'red';
+    event.target.style.cursor = 'grabbing';
+    event.dataTransfer.effectAllowed = 'all';
   }
 
   function onDragEnd(event) {
-    commentElement.style.backgroundColor = 'white';
+    dragging = false;
+    notifyDragging(dragging);
+    event.target.style.cursor = 'grab';
   }
 </script>
 
@@ -26,6 +32,7 @@
   on:dragstart={onDragStart}
   on:dragend={onDragEnd}
   transition:slide|local={{ duration: 300 }}
+  class:opacity-25={dragging}
   class="mt-2 w-full">
   <Comment {element} {deleteComment} {likeComment} />
 </div>

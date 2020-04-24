@@ -49,7 +49,7 @@
 
 <div
   class="relative text-gray-800 rounded h-auto w-full flex items-center border
-  border-solid border-gray-400">
+  border-solid border-gray-400 bg-white">
   <div
     class="py-4 pl-4 pr-8 w-full"
     on:contextmenu|preventDefault={openContextMenu}>
@@ -83,14 +83,14 @@
     <li
       on:click={onLikeComment}
       tabindex="0"
-      class=" p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600
+      class="p-4 rounded-tr-md hover:text-white bg-white hover:bg-green-600
       focus:bg-green-600 focus:text-white ">
       Like comment
     </li>
     <li
       tabindex="0"
       on:click={onDeleteComment}
-      class=" p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
+      class="p-4 rounded-b-md hover:text-white bg-white hover:bg-red-500
       focus:bg-red-500 focus:text-white ">
       Remove comment
     </li>

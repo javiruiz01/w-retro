@@ -1,25 +1,30 @@
 <script>
-  import DraggableItem from './DraggableItem.svelte';
   import { slide } from 'svelte/transition';
+  import DraggableItem from './DraggableItem.svelte';
 
   export let card;
   export let deleteComment;
   export let likeComment;
 
   let draggedOverIdx;
+  let isAvailableDropzone = false;
 
   function onDragOver(event) {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
+    if (isAvailableDropzone) {
+      event.preventDefault();
+    }
   }
 
   function onDrop(event) {
-    event.preventDefault();
-
     const data = event.dataTransfer.getData('text/plain');
     const element = card.comments.find(({ id }) => data === id);
-    const rest = card.comments.filter(({ id }) => data !== id);
 
+    if (!element) {
+      return;
+    }
+    event.preventDefault();
+
+    const rest = card.comments.filter(({ id }) => data !== id);
     card.comments = [
       ...rest.slice(0, draggedOverIdx),
       element,
@@ -28,13 +33,17 @@
   }
 </script>
 
-<div class="pl-8 pr-6" on:dragover={onDragOver} on:drop={onDrop}>
+<div class="pl-8 pr-6 h-full" on:dragover={onDragOver} on:drop={onDrop}>
   {#each card.comments as element, idx}
     <div
       on:dragover={() => void (draggedOverIdx = idx)}
       transition:slide|local={{ duration: 300 }}
       class="mt-2 w-full">
-      <DraggableItem {element} {deleteComment} {likeComment} />
+      <DraggableItem
+        {element}
+        {deleteComment}
+        {likeComment}
+        notifyDragging={(event) => (isAvailableDropzone = event)} />
     </div>
   {/each}
 </div>
