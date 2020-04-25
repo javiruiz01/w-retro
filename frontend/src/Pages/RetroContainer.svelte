@@ -4,6 +4,7 @@
   import { hubClient } from '../hub.js';
   import { onMount } from 'svelte';
   import { sessionStore, emptySession } from '../Stores/SessionStore.js';
+  import Footer from '../components/Footer.svelte';
   import Loader from '../components/Loader.svelte';
   import NotFound from '../components/NotFound.svelte';
   import RetroPage from './Retro.svelte';
@@ -37,7 +38,7 @@
   }
 </script>
 
-<div class="flex flex-col h-full max-w-screen-lg mx-auto">
+<div class="flex flex-col h-full max-w-screen-lg mx-auto p-12">
   {#if isLoading}
     <Loader />
   {:else if doesNotExist}
@@ -46,3 +47,4 @@
     <RetroPage />
   {/if}
 </div>
+<Footer />

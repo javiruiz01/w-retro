@@ -15,7 +15,7 @@
 </script>
 
 <Navbar />
-<main class="main h-full p-12">
+<main class="main h-full">
   {#if ready}
     <RetroContainerPage />
   {:else}
