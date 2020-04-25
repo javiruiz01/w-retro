@@ -32,6 +32,6 @@
   on:dragend={onDragEnd}
   class:opacity-25={dragging}
   style="cursor: grab;"
-  class="mt-2 w-full">
+  class="pt-2 w-full h-full">
   <Comment {element} {deleteComment} {likeComment} />
 </div>

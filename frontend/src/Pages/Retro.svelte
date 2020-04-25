@@ -64,7 +64,6 @@
     position: absolute;
     pointer-events: none;
     top: 0;
-    margin-top: 1rem;
   }
 
   .left-shadow::before {
@@ -90,32 +89,34 @@
   }
 </style>
 
-<div class="w-full sm:w-1/3">
-  <EditableTitle title={retroTitle} {updateTitle}>
-    <h2 class="text-lg text-gray-700 hover:text-teal-600 leading-snug">
-      {retroTitle}
-    </h2>
-  </EditableTitle>
-</div>
-<div
-  class="intersection relative w-full h-full"
-  class:left-shadow={showLeftShadow}
-  class:right-shadow={showRightShadow}>
+<div class="h-full flex flex-col">
+  <div class="w-full sm:w-1/3">
+    <EditableTitle title={retroTitle} {updateTitle}>
+      <h2 class="text-lg text-gray-700 hover:text-teal-600 leading-snug">
+        {retroTitle}
+      </h2>
+    </EditableTitle>
+  </div>
   <div
-    class="mt-4 overflow-x-scroll scrollable-container h-full pb-2 px-1 flex
-    h-full">
-    <div id="begin" />
-    {#each columns as card, idx}
-      <div class="w-full min-w-13">
-        <Card {card} />
+    class="intersection relative w-full h-full flex-1 min-h-0 mt-4"
+    class:left-shadow={showLeftShadow}
+    class:right-shadow={showRightShadow}>
+    <div class="overflow-x-scroll scrollable-container h-full">
+      <div class="pb-2 px-1 flex h-full">
+        <div id="begin" />
+        {#each columns as card, idx}
+          <div class="w-full h-full min-w-15">
+            <Card {card} />
+          </div>
+          {#if idx !== columns.length - 1}
+            <div class="px-4" />
+          {:else}
+            <div class="pr-1" />
+          {/if}
+        {/each}
+        <div id="end" />
       </div>
-      {#if idx !== columns.length - 1}
-        <div class="px-4" />
-      {:else}
-        <div class="pr-1" />
-      {/if}
-    {/each}
-    <div id="end" />
+    </div>
   </div>
 </div>
 <FabButton {onClick} />
