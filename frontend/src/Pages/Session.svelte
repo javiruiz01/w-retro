@@ -14,13 +14,37 @@
     void sessionStore.set({ id: await httpClient.createSession() });
 </script>
 
-<div class="grid grid-cols-1 grid-rows-2 h-full items-center">
+<style>
+  @media only screen and (max-width: 1024px) {
+    #footer-image {
+      bottom: 0;
+      left: 1%;
+      right: 1%;
+      margin: auto;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media screen and (max-height: 750px) {
+    #footer-image {
+      visibility: hidden;
+    }
+
+    #session-container {
+      grid-template-rows: auto;
+    }
+  }
+</style>
+
+<div
+  id="session-container"
+  class="grid grid-cols-1 grid-rows-2 h-full items-center">
   <div class="row-span-1 col-span-1 flex justify-center w-full">
     <form
       on:submit|preventDefault={handleSubmit}
       class="w-3/4 lg:w-1/2 flex flex-col mb-8 lg:mb-0 ">
       <label
-        class="text-3xl mb-4 text-blue-900 self-center lg:self-start"
+        class="text-3xl mb-4 text-blue-900 text-center lg:text-left"
         for="sessionId">
         Already created a session?
       </label>
@@ -54,8 +78,9 @@
     </form>
   </div>
   <img
-    style="min-width: 400px; max-width: 600px;"
-    class="absolute bottom-0 right-0 m-4 w-7/12 lg:w-5/12"
+    id="footer-image"
+    class="w-full absolute lg:bottom-0 lg:right-0 lg:m-4"
+    style="min-width: 400px; max-width: 500px;"
     src="assets/icons/collaborators.svg"
     alt="collaborators" />
 </div>
