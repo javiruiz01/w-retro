@@ -6,6 +6,7 @@
   import Card from '../components/Card.svelte';
   import EditableTitle from '../components/EditableTitle.svelte';
   import FabButton from '../components/FabButton.svelte';
+  import RemoveIcon from '../components/icons/Remove.svelte';
 
   let columns = [];
   let retroTitle = '';
@@ -43,7 +44,7 @@
 
   $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-1' : 'mr-8');
 
-  const onClick = () =>
+  const addCard = () =>
     void httpClient
       .addColumn(columns.length)
       .then((res) => void (columns = [...columns, res]));
@@ -52,6 +53,8 @@
     retroTitle = title;
     httpClient.updateSessionTitle(title);
   };
+
+  const removeCard = (card) => void httpClient.removeColumn(card.id);
 </script>
 
 <style>
@@ -87,6 +90,10 @@
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
   }
+
+  #cardContainer:hover button#removeCardButton {
+    display: block;
+  }
 </style>
 
 <div class="h-full flex flex-col">
@@ -106,8 +113,16 @@
       <div class="pb-2 px-1 flex h-full">
         <div id="begin" />
         {#each columns as card, idx}
-          <div class="w-full h-full min-w-15">
+          <div class="relative w-full h-full min-w-15" id="cardContainer">
+            <button
+              on:click|preventDefault={() => removeCard(card)}
+              id="removeCardButton"
+              class="text-red-500 hover:text-red-700 absolute top-0 right-0 mr-2
+              mt-4 z-30 hidden">
+              <RemoveIcon />
+            </button>
             <Card {card} />
+
           </div>
           {#if idx !== columns.length - 1}
             <div class="px-4" />
@@ -120,4 +135,4 @@
     </div>
   </div>
 </div>
-<FabButton {onClick} />
+<FabButton onClick={addCard} />
