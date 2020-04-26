@@ -12,13 +12,23 @@
 
   sessionStore.subscribe(({ id }) => void (sessionId = id));
 
+  const removeNotification = () =>
+    void setTimeout(() => void (showCopiedNotification = false), 450);
+
   const copySessionId = () => {
     showCopiedNotification = true;
-    navigator.clipboard
-      .writeText(sessionId)
-      .then(
-        () => void setTimeout(() => void (showCopiedNotification = false), 450)
-      );
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(sessionId).then(removeNotification);
+    } else {
+      const listener = (e) => {
+        e.clipboardData.setData('text/plain', sessionId);
+        e.preventDefault();
+      };
+      document.addEventListener('copy', listener, false);
+      document.execCommand('copy');
+      document.removeEventListener('copy', listener, false);
+      removeNotification();
+    }
   };
 </script>
 
