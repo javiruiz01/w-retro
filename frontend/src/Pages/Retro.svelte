@@ -92,7 +92,8 @@
 <div class="h-full flex flex-col">
   <div class="w-full sm:w-1/3">
     <EditableTitle title={retroTitle} {updateTitle}>
-      <h2 class="text-lg text-gray-700 hover:text-teal-600 leading-snug">
+      <h2
+        class="text-lg text-gray-700 hover:text-teal-600 leading-snug font-bold">
         {retroTitle}
       </h2>
     </EditableTitle>

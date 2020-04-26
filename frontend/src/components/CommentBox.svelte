@@ -38,6 +38,13 @@
   }
 </script>
 
+<style>
+  textarea {
+    backdrop-filter: saturate(180%) blur(5px);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+</style>
+
 <div class="w-full mb-2">
   <Button onClick={toggleTextarea}>
     {#if showTextarea}
