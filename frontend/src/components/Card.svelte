@@ -42,9 +42,20 @@
 
 <style>
   #stickyContainer {
-    backdrop-filter: saturate(180%) blur(5px);
     transition: box-shadow 0.1s ease 0s;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: white;
+  }
+
+  @supports (
+    (-webkit-backdrop-filter: saturate(180%) blur(5px)) or
+      (backdrop-filter: saturate(180%) blur(5px))
+  ) {
+    #stickyContainer {
+      -webkit-backdrop-filter: saturate(180%) blur(5px);
+      backdrop-filter: saturate(180%) blur(5px);
+      transition: box-shadow 0.1s ease 0s;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
   }
 </style>
 
