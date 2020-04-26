@@ -5,6 +5,7 @@
   import { sessionStore } from '../Stores/SessionStore.js';
   import Card from '../components/Card.svelte';
   import EditableTitle from '../components/EditableTitle.svelte';
+  import EmptyState from '../components/EmptyState.svelte';
   import FabButton from '../components/FabButton.svelte';
   import RemoveIcon from '../components/icons/Remove.svelte';
 
@@ -105,34 +106,39 @@
       </h2>
     </EditableTitle>
   </div>
-  <div
-    class="intersection relative w-full h-full flex-1 min-h-0 mt-4"
-    class:left-shadow={showLeftShadow}
-    class:right-shadow={showRightShadow}>
-    <div class="overflow-x-scroll scrollable-container h-full">
-      <div class="pb-2 px-1 flex h-full">
-        <div id="begin" />
-        {#each columns as card, idx}
-          <div class="relative w-full h-full min-w-15" id="cardContainer">
-            <button
-              on:click|preventDefault={() => removeCard(card)}
-              id="removeCardButton"
-              class="text-red-500 hover:text-red-700 absolute top-0 right-0 mr-2
-              mt-4 z-30 hidden">
-              <RemoveIcon />
-            </button>
-            <Card {card} />
+  {#if columns.length > 0}
+    <div
+      class="intersection relative w-full h-full flex-1 min-h-0 mt-4"
+      class:left-shadow={showLeftShadow}
+      class:right-shadow={showRightShadow}>
+      <div class="overflow-x-scroll scrollable-container h-full">
+        <div class="pb-2 px-1 flex h-full">
+          <div id="begin" />
+          {#each columns as card, idx}
+            <div class="relative w-full h-full min-w-15" id="cardContainer">
+              <button
+                on:click|preventDefault={() => removeCard(card)}
+                id="removeCardButton"
+                class="text-red-500 hover:text-red-700 absolute top-0 right-0
+                mr-2 mt-4 z-30 hidden">
+                <RemoveIcon />
+              </button>
+              <Card {card} />
 
-          </div>
-          {#if idx !== columns.length - 1}
-            <div class="px-4" />
-          {:else}
-            <div class="pr-1" />
-          {/if}
-        {/each}
-        <div id="end" />
+            </div>
+            {#if idx !== columns.length - 1}
+              <div class="px-4" />
+            {:else}
+              <div class="pr-1" />
+            {/if}
+          {/each}
+          <div id="end" />
+        </div>
       </div>
     </div>
-  </div>
+  {:else}
+    <EmptyState />
+  {/if}
 </div>
+
 <FabButton onClick={addCard} />
