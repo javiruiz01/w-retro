@@ -47,13 +47,15 @@
   }
 </style>
 
-<nav class="p-3 shadow-md align-text-middle bg-white">
-  <div
-    class="text-3xl text-gray-700 flex items-baseline flex-row justify-between
-    cursor-pointer w-full">
+<header
+  class="p-3 shadow-md align-text-middle bg-white flex items-baseline flex-row
+  justify-between">
+  <aside class="text-3xl text-gray-700 cursor-pointer">
     <h1 tabindex="0" on:click|preventDefault={clearSession} class="block ml-5 ">
       w-retro
     </h1>
+  </aside>
+  <aside>
     <span
       class="relative block mr-5 text-lg"
       on:click|preventDefault={copySessionId}
@@ -61,7 +63,7 @@
       <span class="text-teal-500 lg:cursor-default">Session Id</span>
       <span
         class="hover:bg-teal-700 hover:text-white p-1 rounded-lg hidden
-        md:inline-block">
+        md:inline-block cursor-pointer">
         {sessionId}
       </span>
       <div
@@ -71,5 +73,5 @@
         Copied!
       </div>
     </span>
-  </div>
-</nav>
+  </aside>
+</header>
