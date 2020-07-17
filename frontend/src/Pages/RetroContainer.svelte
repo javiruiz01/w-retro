@@ -4,6 +4,7 @@
   import { hubClient } from '../hub.js';
   import { onMount } from 'svelte';
   import { sessionStore, emptySession } from '../Stores/SessionStore.js';
+  import { locationClient } from '../location-client';
   import Footer from '../components/Footer.svelte';
   import Loader from '../components/Loader.svelte';
   import NotFound from '../components/NotFound.svelte';
@@ -22,16 +23,7 @@
       } else {
         notify(session);
 
-        const urlSessionId = new URLSearchParams(window.location.search).get(
-          'id'
-        );
-
-        if (urlSessionId !== session.id) {
-          const queryParams = new URLSearchParams({
-            id: session.id,
-          }).toString();
-          window.history.pushState(null, null, `?${queryParams}`);
-        }
+        locationClient.update(session.id);
       }
 
       isLoading = false;

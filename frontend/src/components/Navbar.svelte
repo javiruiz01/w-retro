@@ -1,6 +1,7 @@
 <script>
   import { sessionStore, emptySession } from '../Stores/SessionStore.js';
   import { cardsStore } from '../Stores/CardsStore.js';
+  import { locationClient } from '../location-client';
 
   let sessionId = '';
   let showCopiedNotification = false;
@@ -9,8 +10,7 @@
     cardsStore.set([]);
     sessionStore.set(emptySession);
 
-    const [url] = window.location.href.split('?')
-    window.history.pushState(null, null, url);
+    locationClient.clear();
   };
 
   sessionStore.subscribe(({ id }) => void (sessionId = id));
