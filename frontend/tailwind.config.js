@@ -1,4 +1,11 @@
 module.exports = {
+  // purge: {
+  //   enabled: true,
+  //   content: ['./**/*.html', './**/*.svelte'],
+  //   options: {
+  //     whitelist: ['left-shadow', 'right-shadow'],
+  //   },
+  // },
   theme: {
     extend: {
       minWidth: {

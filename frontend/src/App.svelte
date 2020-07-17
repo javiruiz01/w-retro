@@ -1,7 +1,7 @@
 <script>
   import { hubClient } from './hub.js';
   import { onMount } from 'svelte';
-  import { sessionStore } from './Stores/SessionStore.js';
+  import { sessionStore, emptySession } from './Stores/SessionStore.js';
   import Navbar from './components/Navbar.svelte';
   import RetroContainerPage from './Pages/RetroContainer.svelte';
   import SessionPage from './Pages/Session.svelte';
@@ -11,7 +11,23 @@
 
   sessionStore.subscribe(({ id }) => void (ready = !!id.trim()));
 
-  onMount(() => void hubClient.initHubConnection());
+  onMount(() => {
+    hubClient.initHubConnection();
+
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (id != null && id.trim() !== '') {
+      sessionStore.update((value) => ({ ...value, id }));
+    }
+
+    window.addEventListener('popstate', (_) => {
+      const id = new URLSearchParams(window.location.search).get('id');
+      if (id != null && id.trim() !== '') {
+        sessionStore.update((value) => ({ ...value, id }));
+      } else {
+        sessionStore.set(emptySession);
+      }
+    });
+  });
 </script>
 
 <style>

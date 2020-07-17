@@ -21,6 +21,17 @@
         doesNotExist = true;
       } else {
         notify(session);
+
+        const urlSessionId = new URLSearchParams(window.location.search).get(
+          'id'
+        );
+
+        if (urlSessionId !== session.id) {
+          const queryParams = new URLSearchParams({
+            id: session.id,
+          }).toString();
+          window.history.pushState(null, null, `?${queryParams}`);
+        }
       }
 
       isLoading = false;

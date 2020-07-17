@@ -8,6 +8,9 @@
   const clearSession = () => {
     cardsStore.set([]);
     sessionStore.set(emptySession);
+
+    const [url] = window.location.href.split('?')
+    window.history.pushState(null, null, url);
   };
 
   sessionStore.subscribe(({ id }) => void (sessionId = id));

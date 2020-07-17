@@ -1,14 +1,12 @@
 <script>
+  import Button from '../components/Button.svelte';
   import { httpClient } from '../http.client.js';
   import { sessionStore } from '../Stores/SessionStore.js';
-  import Button from '../components/Button.svelte';
 
   $: rawSession = '';
 
   const handleSubmit = () =>
-    void sessionStore.update((value) =>
-      Object.assign({}, value, { id: rawSession })
-    );
+    void sessionStore.update((value) => ({ ...value, id: rawSession }));
 
   const createNewSession = async () =>
     void sessionStore.set({ id: await httpClient.createSession() });
