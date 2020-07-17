@@ -13,13 +13,13 @@
   sessionStore.subscribe(({ id }) => void (ready = !!id.trim()));
 
   onMount(() => {
-    hubClient.initHubConnection();
-
-    locationClient.handleInitialValue();
-    window.addEventListener(
-      'popstate',
-      (_) => void locationClient.handleNavigation()
-    );
+    hubClient.initHubConnection().then(() => {
+      locationClient.handleInitialValue();
+      window.addEventListener(
+        'popstate',
+        (_) => void locationClient.handleNavigation()
+      );
+    });
   });
 </script>
 
