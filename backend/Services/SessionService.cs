@@ -40,7 +40,7 @@ namespace wRetroApi.Services
 
         public async Task<Guid> CreateSession()
         {
-            var cards = new[] {"Good", "Meh", "bad"}
+            var cards = new[] {"Good", "Meh", "Bad"}
                 .Select((title, idx) => new Card
                 {
                     Id = Guid.NewGuid(),

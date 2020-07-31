@@ -2,7 +2,7 @@
   import { hubClient } from './hub.js';
   import { onMount } from 'svelte';
   import { sessionStore, emptySession } from './Stores/SessionStore.js';
-  import { locationClient } from './location-client';
+  import { router } from './router';
   import Navbar from './components/Navbar.svelte';
   import RetroContainerPage from './Pages/RetroContainer.svelte';
   import SessionPage from './Pages/Session.svelte';
@@ -14,24 +14,24 @@
 
   onMount(() => {
     hubClient.initHubConnection().then(() => {
-      locationClient.handleInitialValue();
+      router.handleInitialValue();
       window.addEventListener(
         'popstate',
-        (_) => void locationClient.handleNavigation()
+        (_) => void router.handleNavigation()
       );
     });
   });
 </script>
 
 <style>
-  .main::before,
-  .main::after {
+  .retro-container::before,
+  .retro-container::after {
     position: absolute;
     content: '';
     height: 100%;
   }
 
-  .main::before {
+  .retro-container::before {
     background-color: #e2e8f0;
     clip-path: polygon(0 50%, 0 100%, 100% 100%);
     width: 70%;
@@ -39,7 +39,7 @@
     left: 0;
   }
 
-  .main::after {
+  .retro-container::after {
     background-color: #edf2f7;
     clip-path: polygon(147% -30%, 0 100%, 100% 100%);
     width: 80%;
@@ -47,12 +47,18 @@
     right: 0;
     z-index: -1;
   }
+
+  .main {
+    height: calc(100% - 69px);
+  }
 </style>
 
 <Navbar />
-<main class="main h-full">
+<main class="main">
   {#if ready}
-    <RetroContainerPage />
+    <div class="retro-container h-full">
+      <RetroContainerPage />
+    </div>
   {:else}
     <SessionPage />
   {/if}

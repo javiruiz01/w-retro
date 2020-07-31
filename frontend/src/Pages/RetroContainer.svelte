@@ -4,7 +4,7 @@
   import { hubClient } from '../hub.js';
   import { onMount } from 'svelte';
   import { sessionStore, emptySession } from '../Stores/SessionStore.js';
-  import { locationClient } from '../location-client';
+  import { router } from '../router';
   import Footer from '../components/Footer.svelte';
   import Loader from '../components/Loader.svelte';
   import NotFound from '../components/NotFound.svelte';
@@ -23,7 +23,7 @@
       } else {
         notify(session);
 
-        locationClient.update(session.id);
+        router.update(session.id);
       }
 
       isLoading = false;

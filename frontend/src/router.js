@@ -1,6 +1,6 @@
 import { emptySession, sessionStore } from './Stores/SessionStore.js';
 
-export const locationClient = {
+export const router = {
   handleNavigation,
   update,
   clear,
@@ -8,7 +8,7 @@ export const locationClient = {
 };
 
 function handleNavigation() {
-  const id = getIdFromUrl();
+  const id = getFromQueryParams('id');
   if (id != null && id.trim() !== '') {
     sessionStore.update((value) => ({ ...value, id }));
   } else {
@@ -17,7 +17,7 @@ function handleNavigation() {
 }
 
 function update(sessionId) {
-  const urlSessionId = getIdFromUrl();
+  const urlSessionId = getFromQueryParams('id');
 
   if (urlSessionId !== sessionId) {
     const queryParams = new URLSearchParams({
@@ -33,12 +33,12 @@ function clear() {
 }
 
 function handleInitialValue() {
-  const id = getIdFromUrl();
+  const id = getFromQueryParams('id');
   if (id != null && id.trim() !== '') {
     sessionStore.update((value) => ({ ...value, id }));
   }
 }
 
-function getIdFromUrl() {
-  return new URLSearchParams(window.location.search).get('id');
+function getFromQueryParams(key) {
+  return new URLSearchParams(window.location.search).get(key);
 }

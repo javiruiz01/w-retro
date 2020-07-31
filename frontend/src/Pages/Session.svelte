@@ -12,73 +12,47 @@
     void sessionStore.set({ id: await httpClient.createSession() });
 </script>
 
-<style>
-  @media only screen and (max-width: 1024px) {
-    #footer-image {
-      bottom: 0;
-      left: 1%;
-      right: 1%;
-      margin: auto;
-      margin-bottom: 1rem;
-    }
-  }
-
-  @media screen and (max-height: 750px) {
-    #footer-image {
-      visibility: hidden;
-    }
-
-    #session-container {
-      grid-template-rows: auto;
-    }
-  }
-</style>
-
-<div
-  id="session-container"
-  class="grid grid-cols-1 grid-rows-2 h-full items-center">
-  <div class="row-span-1 col-span-1 flex justify-center w-full">
+<div class="flex max-w-md h-full items-center mx-auto">
+  <div class="bg-white rounded-lg shadow-md w-full px-8 py-10">
     <form
-      on:submit|preventDefault={handleSubmit}
-      class="w-3/4 lg:w-1/2 flex flex-col mb-8 lg:mb-0 ">
-      <label
-        class="text-3xl mb-4 text-blue-900 text-center lg:text-left"
-        for="sessionId">
-        Already created a session?
+      class="flex flex-col space-y-8"
+      on:submit|preventDefault={handleSubmit}>
+      <label for="sessionId" class="text-2xl text-blue-900">
+        Already started a retro session?
       </label>
-      <div class="flex flex-col lg:flex-row justify-center items-center mb-4">
+      <img
+        class="w-full block"
+        src="assets/icons/collaborators.svg"
+        alt="collaborators"
+        loading="lazy"
+        width="384"
+        height="290" />
+      <div class="flex flex-col space-y-4">
         <input
           bind:value={rawSession}
           placeholder="Input your session Id here"
-          class="mb-4 lg:mb-0 w-4/5 lg:w-full bg-white focus:outline-none
-          focus:shadow-outline border border-gray-300 rounded-lg p-4 block
-          appearance-none leading-normal self-center lg:self-start shadow-md"
+          class="bg-white focus:outline-none focus:shadow-outline border
+          border-gray-300 rounded-md p-4 block appearance-none leading-normal
+          shadow-sm"
           type="text"
           name="sessionId"
           id="sessionId" />
-        <div class="w-2/6 pl-4">
-          <Button
-            override="text-gray-900 font-semibold hover:text-white bg-teal-500
-            hover:bg-teal-800 p-4">
+        <div class="flex space-x-2">
+          <button
+            on:click={createNewSession}
+            class="hover:bg-gray-400 py-2 px-4 rounded-md h-auto w-full flex
+            items-center justify-center border border-solid border-gray-400
+            focus:outline-none focus:shadow-outline">
+            Create a new session
+          </button>
+          <button
+            class="py-2 px-4 rounded-md h-auto w-full flex justify-center
+            items-center font-semibold text-white bg-teal-500 hover:bg-teal-800
+            focus:outline-none focus:shadow-outline">
             Submit
-          </Button>
+          </button>
         </div>
       </div>
-      <span class="self-center lg:self-start">
-        Or, create a new session
-        <a
-          class="text-teal-500 hover:text-teal-800 font-semibold "
-          on:click|preventDefault={createNewSession}
-          href="/">
-          here
-        </a>
-      </span>
     </form>
   </div>
-  <img
-    id="footer-image"
-    class="w-full absolute lg:bottom-0 lg:right-0 lg:m-4"
-    style="min-width: 400px; max-width: 500px;"
-    src="assets/icons/collaborators.svg"
-    alt="collaborators" />
 </div>
