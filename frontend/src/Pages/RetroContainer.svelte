@@ -41,13 +41,7 @@
   }
 </script>
 
-<style>
-  .container {
-    max-height: calc(100vh - 70px);
-  }
-</style>
-
-<div class="container flex flex-col max-w-screen-lg mx-auto p-12 h-full">
+<div class="flex flex-col max-w-screen-lg mx-auto p-12 h-full">
   {#if isLoading}
     <Loader />
   {:else if doesNotExist}

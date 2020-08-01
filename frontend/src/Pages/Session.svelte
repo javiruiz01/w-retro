@@ -1,5 +1,4 @@
 <script>
-  import Button from '../components/Button.svelte';
   import { httpClient } from '../http.client.js';
   import { sessionStore } from '../Stores/SessionStore.js';
 

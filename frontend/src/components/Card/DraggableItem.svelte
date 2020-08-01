@@ -1,7 +1,7 @@
 <script>
   import { slide } from 'svelte/transition';
   import { onMount } from 'svelte';
-  import Comment from './Comment.svelte';
+  import Comment from '../Comment.svelte';
 
   export let element;
   export let deleteComment;

@@ -12,53 +12,35 @@
 
   sessionStore.subscribe(({ id }) => void (ready = !!id.trim()));
 
-  onMount(() => {
-    hubClient.initHubConnection().then(() => {
-      router.handleInitialValue();
-      window.addEventListener(
-        'popstate',
-        (_) => void router.handleNavigation()
-      );
-    });
-  });
+  onMount(
+    () =>
+      void hubClient.initHubConnection().then(() => {
+        router.handleInitialValue();
+        window.addEventListener(
+          'popstate',
+          (_) => void router.handleNavigation()
+        );
+      })
+  );
 </script>
 
 <style>
-  .retro-container::before,
-  .retro-container::after {
-    position: absolute;
-    content: '';
-    height: 100%;
-  }
-
-  .retro-container::before {
-    background-color: #e2e8f0;
-    clip-path: polygon(0 50%, 0 100%, 100% 100%);
-    width: 70%;
-    bottom: 0;
-    left: 0;
-  }
-
-  .retro-container::after {
-    background-color: #edf2f7;
-    clip-path: polygon(147% -30%, 0 100%, 100% 100%);
-    width: 80%;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-  }
-
-  .main {
+  main {
     height: calc(100% - 69px);
   }
 </style>
 
 <Navbar />
-<main class="main">
+<main class="h-full">
   {#if ready}
-    <div class="retro-container h-full">
-      <RetroContainerPage />
-    </div>
+    <div
+      class="absolute h-full bg-gray-300 bottom-0 left-0"
+      style="clip-path: polygon(0 50%, 0 100%, 100% 100%);width: 70%;" />
+    <RetroContainerPage />
+    <div
+      class="absolute h-full bg-gray-200 bottom-0 right-0"
+      style="clip-path: polygon(147% -30%, 0 100%, 100% 100%);width:
+      80%;z-index: -1" />
   {:else}
     <SessionPage />
   {/if}

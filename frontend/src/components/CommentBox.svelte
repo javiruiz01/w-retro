@@ -2,7 +2,6 @@
   import { slide } from 'svelte/transition';
   import { tick } from 'svelte';
   import AddIcon from './icons/Add.svelte';
-  import Button from './Button.svelte';
   import CloseIcon from './icons/Close.svelte';
   import SubmitIcon from './icons/Submit.svelte';
 
@@ -46,13 +45,16 @@
 </style>
 
 <div class="w-full mb-2">
-  <Button onClick={toggleTextarea}>
+  <button
+    class="bg-gray-300 hover:bg-gray-400 py-2 px-4 rounded h-auto w-full flex
+    justify-center"
+    on:click={toggleTextarea}>
     {#if showTextarea}
       <CloseIcon color={'text-gray-800'} />
     {:else}
       <AddIcon />
     {/if}
-  </Button>
+  </button>
 </div>
 {#if showTextarea}
   <div transition:slide|local={{ duration: 200 }} class="relative">

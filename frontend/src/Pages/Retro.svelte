@@ -3,7 +3,7 @@
   import { cardsStore } from '../Stores/CardsStore.js';
   import { httpClient } from '../http.client.js';
   import { sessionStore } from '../Stores/SessionStore.js';
-  import Card from '../components/Card.svelte';
+  import Card from '../components/Card/Card.svelte';
   import EditableTitle from '../components/EditableTitle.svelte';
   import EmptyState from '../components/EmptyState.svelte';
   import FabButton from '../components/FabButton.svelte';
@@ -42,8 +42,6 @@
     observer.observe(document.querySelector('#begin'));
     observer.observe(document.querySelector('#end'));
   });
-
-  $: getMargin = (idx) => (idx === columns.length - 1 ? 'mr-1' : 'mr-8');
 
   const addCard = () =>
     void httpClient

@@ -1,9 +1,9 @@
 <script>
-  import { httpClient } from '../http.client.js';
+  import { httpClient } from '../../http.client.js';
 
-  import CommentBox from './CommentBox.svelte';
+  import CommentBox from '../CommentBox.svelte';
   import DraggableContainer from './DraggableContainer.svelte';
-  import EditableTitle from './EditableTitle.svelte';
+  import EditableTitle from '../EditableTitle.svelte';
 
   export let card;
 
@@ -17,11 +17,14 @@
       text,
       card.comments.length
     );
-    card.comments = [...card.comments, comment];
+    card = { ...card, comments: [...card.comments, comment] };
   }
 
   function deleteComment(commentId) {
-    card.comments = card.comments.filter(({ id }) => id !== commentId);
+    card = {
+      ...card,
+      comments: card.comments.filter(({ id }) => id !== commentId),
+    };
     httpClient.removeComment(commentId);
   }
 
@@ -62,7 +65,7 @@
 <div
   class="h-full flex flex-col py-8 rounded-lg bg-white border-gray-400
   align-center w-full shadow-md overflow-y-scroll scrollable-container">
-  <div id="stickyContainer" class="relative sticky -top-2 z-20 pl-8 pr-6">
+  <div id="stickyContainer" class="sticky -top-2 z-20 pl-8 pr-6">
     <div class="mb-2">
       <EditableTitle title={card.title} updateTitle={onUpdateTitle}>
         <span class="font-semibold">{card.title}</span>
