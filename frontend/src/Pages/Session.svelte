@@ -15,7 +15,8 @@
   <div class="bg-white rounded-lg shadow-md w-full px-8 py-10">
     <form
       class="flex flex-col space-y-8"
-      on:submit|preventDefault={handleSubmit}>
+      on:submit|preventDefault={handleSubmit}
+      netlify>
       <label for="sessionId" class="text-2xl text-blue-900">
         Already started a retro session?
       </label>
@@ -41,13 +42,15 @@
             on:click={createNewSession}
             class="hover:bg-gray-400 py-2 px-4 rounded-md h-auto w-full flex
             items-center justify-center border border-solid border-gray-400
-            focus:outline-none focus:shadow-outline">
+            focus:outline-none focus:shadow-outline transition-colors ease-in
+            duration-100">
             Create a new session
           </button>
           <button
-            class="py-2 px-4 rounded-md h-auto w-full flex justify-center
-            items-center font-semibold text-white bg-teal-500 hover:bg-teal-800
-            focus:outline-none focus:shadow-outline">
+            class="hover:bg-teal-800 py-2 px-4 rounded-md h-auto w-full flex
+            justify-center items-center font-semibold text-white bg-teal-500
+            focus:outline-none focus:shadow-outline transition-colors ease-in
+            duration-100">
             Submit
           </button>
         </div>
