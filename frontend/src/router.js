@@ -1,44 +1,23 @@
-import { emptySession, sessionStore } from './Stores/SessionStore.js';
+import { writable } from 'svelte/store';
+
+export const currentPath = writable(getPathname());
 
 export const router = {
-  handleNavigation,
-  update,
-  clear,
-  handleInitialValue,
+  onLocationChange,
+  navigate,
+  getPathname,
 };
 
-function handleNavigation() {
-  const id = getFromQueryParams('id');
-  if (id != null && id.trim() !== '') {
-    sessionStore.update((value) => ({ ...value, id }));
-  } else {
-    sessionStore.set(emptySession);
-  }
+function onLocationChange(callback) {
+  window.addEventListener('popstate', callback);
 }
 
-function update(sessionId) {
-  const urlSessionId = getFromQueryParams('id');
-
-  if (urlSessionId !== sessionId) {
-    const queryParams = new URLSearchParams({
-      id: sessionId,
-    }).toString();
-    window.history.pushState(null, null, `?${queryParams}`);
-  }
+function navigate(path) {
+  window.history.pushState({ path }, '', `${window.location.origin}/${path}`);
+  currentPath.set(path);
 }
 
-function clear() {
-  const [url] = window.location.href.split('?');
-  window.history.pushState(null, null, url);
-}
-
-function handleInitialValue() {
-  const id = getFromQueryParams('id');
-  if (id != null && id.trim() !== '') {
-    sessionStore.update((value) => ({ ...value, id }));
-  }
-}
-
-function getFromQueryParams(key) {
-  return new URLSearchParams(window.location.search).get(key);
+function getPathname() {
+  const { pathname } = window.location;
+  return pathname.startsWith('/') ? pathname.slice(1) : pathname;
 }

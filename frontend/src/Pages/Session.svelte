@@ -1,5 +1,6 @@
 <script>
   import { httpClient } from '../http.client.js';
+  import { router } from '../router';
   import { sessionStore } from '../Stores/SessionStore.js';
 
   $: rawSession = '';

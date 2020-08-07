@@ -10,6 +10,7 @@
   import NotFound from '../components/NotFound.svelte';
   import RetroPage from './Retro.svelte';
 
+  export let sessionId = '';
   let columns = [];
   let isLoading = true;
   let doesNotExist = false;
@@ -17,13 +18,11 @@
   onMount(() => {
     isLoading = true;
 
-    httpClient.fetchSession().then((session) => {
+    httpClient.fetchSession(sessionId).then((session) => {
       if (!session) {
         doesNotExist = true;
       } else {
         notify(session);
-
-        router.update(session.id);
       }
 
       isLoading = false;
@@ -31,12 +30,12 @@
   });
 
   function goBack() {
-    sessionStore.set(emptySession);
+    router.navigate('/');
   }
 
   function notify({ id, title, cards }) {
     cardsStore.set(cards);
-    sessionStore.update((value) => Object.assign({}, value, { title }));
+    sessionStore.update((value) => ({ ...value, title }));
     hubClient.addToGroup(id);
   }
 </script>

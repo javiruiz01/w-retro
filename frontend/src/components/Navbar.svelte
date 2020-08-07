@@ -10,7 +10,7 @@
     cardsStore.set([]);
     sessionStore.set(emptySession);
 
-    router.clear();
+    router.navigate('');
   };
 
   sessionStore.subscribe(({ id }) => void (sessionId = id));
