@@ -1,13 +1,11 @@
 import { writable } from 'svelte/store';
 
-export const currentPath = writable(getPathname());
-
 export const router = {
   onLocationChange,
   navigate,
-  getPathname,
   getCleanPath,
   getParamsBasedOnRouteDefinition,
+  currentPath: writable(getCleanPath(window.location.pathname)),
 };
 
 function onLocationChange(callback) {
@@ -17,12 +15,7 @@ function onLocationChange(callback) {
 function navigate(rawPath) {
   const path = getCleanPath(rawPath);
   window.history.pushState({ path }, '', `${window.location.origin}${path}`);
-  currentPath.set(path);
-}
-
-function getPathname() {
-  const { pathname } = window.location;
-  return getCleanPath(pathname);
+  router.currentPath.set(path);
 }
 
 function getCleanPath(path = '') {
@@ -30,7 +23,7 @@ function getCleanPath(path = '') {
 }
 
 function getParamsBasedOnRouteDefinition(route) {
-  const path = getPathname().split('/');
+  const path = getCleanPath(window.location.pathname).split('/');
 
   return route.split('/').reduce((acc, el, idx) => {
     if (el.startsWith(':')) {

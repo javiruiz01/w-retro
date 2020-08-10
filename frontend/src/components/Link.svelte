@@ -1,5 +1,5 @@
 <script>
-  import { currentPath } from '../router';
+  import { router } from '../router';
 
   export let path;
   export let name = '';
@@ -10,7 +10,7 @@
       '',
       `${window.location.origin}/${path}`
     );
-    currentPath.set(path);
+    router.currentPath.set(path);
   };
 </script>
 

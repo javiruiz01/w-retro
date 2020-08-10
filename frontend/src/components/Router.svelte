@@ -1,13 +1,17 @@
 <script>
-  import { currentPath } from '../router';
+  import { router } from '../router';
   import { onMount } from 'svelte';
   import Route from './Route.svelte';
   import SessionPage from '../pages/Session.svelte';
   import RetroContainerPage from '../pages/RetroContainer.svelte';
 
-  onMount(() => {
-    currentPath.subscribe(console.log);
-  });
+  onMount(
+    () =>
+      void router.onLocationChange(
+        ({ state }) =>
+          void router.currentPath.set(state == null ? '/' : state.path)
+      )
+  );
 </script>
 
 <Route path="/">

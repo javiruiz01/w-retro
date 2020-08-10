@@ -7,7 +7,11 @@
   import Router from './components/Router.svelte';
   import Tailwind from './Tailwindcss.svelte';
 
-  onMount(() => void hubClient.initHubConnection());
+  let loading = true;
+
+  onMount(
+    () => void hubClient.initHubConnection().then(() => void (loading = false))
+  );
 </script>
 
 <style>
@@ -16,7 +20,9 @@
   }
 </style>
 
-<Navbar />
-<main class="h-full">
-  <Router />
-</main>
+{#if !loading}
+  <Navbar />
+  <main class="h-full">
+    <Router />
+  </main>
+{/if}

@@ -1,14 +1,15 @@
 <script>
   import { onMount } from 'svelte';
-  import { router, currentPath } from '../router';
+  import { router } from '../router';
 
   export let path;
-  let currentPathname;
+  let currentPath;
 
-  $: visible = shouldRender(path, currentPathname);
+  $: visible = shouldRender(path, currentPath);
 
   onMount(
-    () => void currentPath.subscribe((value) => void (currentPathname = value))
+    () =>
+      void router.currentPath.subscribe((value) => void (currentPath = value))
   );
 
   function shouldRender(definedPath, current) {
