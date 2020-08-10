@@ -5,11 +5,13 @@
 
   $: rawSession = '';
 
-  const handleSubmit = () =>
-    void sessionStore.update((value) => ({ ...value, id: rawSession }));
+  const handleSubmit = () => router.navigate(`/session/${rawSession}`);
 
-  const createNewSession = async () =>
-    void sessionStore.set({ id: await httpClient.createSession() });
+  const createNewSession = async () => {
+    const newSession = await httpClient
+      .createSession()
+      .then((newSession) => router.navigate(`/session/${newSession}`));
+  };
 </script>
 
 <div class="flex max-w-md h-full items-center mx-auto">
@@ -40,6 +42,7 @@
           id="sessionId" />
         <div class="flex space-x-2">
           <button
+            type="button"
             on:click={createNewSession}
             class="hover:bg-gray-400 py-2 px-4 rounded-md h-auto w-full flex
             items-center justify-center border border-solid border-gray-400

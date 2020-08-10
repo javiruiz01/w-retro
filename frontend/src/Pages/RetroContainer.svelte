@@ -10,7 +10,6 @@
   import NotFound from '../components/NotFound.svelte';
   import RetroPage from './Retro.svelte';
 
-  export let sessionId = '';
   let columns = [];
   let isLoading = true;
   let doesNotExist = false;
@@ -18,7 +17,10 @@
   onMount(() => {
     isLoading = true;
 
-    httpClient.fetchSession(sessionId).then((session) => {
+    const { id } = router.getParamsBasedOnRouteDefinition('/session/:id');
+    sessionStore.update((value) => ({ ...value, id }));
+
+    httpClient.fetchSession().then((session) => {
       if (!session) {
         doesNotExist = true;
       } else {
