@@ -2,8 +2,8 @@
   import { router } from '../router';
   import { onMount } from 'svelte';
   import Route from './Route.svelte';
-  import SessionPage from '../pages/Session.svelte';
-  import RetroContainerPage from '../pages/RetroContainer.svelte';
+  import SessionPage from '../Pages/Session.svelte';
+  import RetroContainerPage from '../Pages/RetroContainer.svelte';
 
   onMount(
     () =>
