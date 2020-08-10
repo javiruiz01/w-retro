@@ -17,13 +17,14 @@
   onMount(() => {
     isLoading = true;
 
+    const { id } = router.getParamsBasedOnRouteDefinition('/session/:id');
+    sessionStore.update((value) => ({ ...value, id }));
+
     httpClient.fetchSession().then((session) => {
       if (!session) {
         doesNotExist = true;
       } else {
         notify(session);
-
-        router.update(session.id);
       }
 
       isLoading = false;
@@ -31,12 +32,12 @@
   });
 
   function goBack() {
-    sessionStore.set(emptySession);
+    router.navigate('/');
   }
 
   function notify({ id, title, cards }) {
     cardsStore.set(cards);
-    sessionStore.update((value) => Object.assign({}, value, { title }));
+    sessionStore.update((value) => ({ ...value, title }));
     hubClient.addToGroup(id);
   }
 </script>

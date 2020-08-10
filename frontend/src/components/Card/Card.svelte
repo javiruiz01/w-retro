@@ -44,6 +44,10 @@
 </script>
 
 <style>
+  .-top-2 {
+    top: -2rem;
+  }
+
   #stickyContainer {
     transition: box-shadow 0.1s ease 0s;
     background-color: white;

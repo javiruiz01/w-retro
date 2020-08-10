@@ -1,44 +1,36 @@
-import { emptySession, sessionStore } from './Stores/SessionStore.js';
+import { writable } from 'svelte/store';
 
 export const router = {
-  handleNavigation,
-  update,
-  clear,
-  handleInitialValue,
+  onLocationChange,
+  navigate,
+  getCleanPath,
+  getParamsBasedOnRouteDefinition,
+  currentPath: writable(getCleanPath(window.location.pathname)),
 };
 
-function handleNavigation() {
-  const id = getFromQueryParams('id');
-  if (id != null && id.trim() !== '') {
-    sessionStore.update((value) => ({ ...value, id }));
-  } else {
-    sessionStore.set(emptySession);
-  }
+function onLocationChange(callback) {
+  window.addEventListener('popstate', callback);
 }
 
-function update(sessionId) {
-  const urlSessionId = getFromQueryParams('id');
-
-  if (urlSessionId !== sessionId) {
-    const queryParams = new URLSearchParams({
-      id: sessionId,
-    }).toString();
-    window.history.pushState(null, null, `?${queryParams}`);
-  }
+function navigate(rawPath) {
+  const path = getCleanPath(rawPath);
+  window.history.pushState({ path }, '', `${window.location.origin}${path}`);
+  router.currentPath.set(path);
 }
 
-function clear() {
-  const [url] = window.location.href.split('?');
-  window.history.pushState(null, null, url);
+function getCleanPath(path = '') {
+  return path.startsWith('/') ? path : `/${path}`;
 }
 
-function handleInitialValue() {
-  const id = getFromQueryParams('id');
-  if (id != null && id.trim() !== '') {
-    sessionStore.update((value) => ({ ...value, id }));
-  }
-}
+function getParamsBasedOnRouteDefinition(route) {
+  const path = getCleanPath(window.location.pathname).split('/');
 
-function getFromQueryParams(key) {
-  return new URLSearchParams(window.location.search).get(key);
+  return route.split('/').reduce((acc, el, idx) => {
+    if (el.startsWith(':')) {
+      const key = el.slice(1);
+      return { ...acc, [key]: path[idx] };
+    }
+
+    return acc;
+  }, {});
 }
