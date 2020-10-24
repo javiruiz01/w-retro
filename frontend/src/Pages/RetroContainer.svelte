@@ -10,7 +10,6 @@
   import NotFound from '../components/NotFound.svelte';
   import RetroPage from './Retro.svelte';
 
-  let columns = [];
   let isLoading = true;
   let doesNotExist = false;
 
