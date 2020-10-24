@@ -1,14 +1,18 @@
 <script>
+  import { onMount } from 'svelte';
   import { httpClient } from '../http.client.js';
   import { router } from '../router';
-  import { sessionStore } from '../Stores/SessionStore.js';
+
+  import { sessionStore } from '../Stores/SessionStore';
 
   $: rawSession = '';
+
+  onMount(() => void sessionStore.set(''));
 
   const handleSubmit = () => router.navigate(`/session/${rawSession}`);
 
   const createNewSession = async () => {
-    const newSession = await httpClient
+    await httpClient
       .createSession()
       .then((newSession) => router.navigate(`/session/${newSession}`));
   };

@@ -13,7 +13,7 @@
     router.navigate('/');
   };
 
-  sessionStore.subscribe(({ id }) => void (sessionId = id));
+  sessionStore.subscribe(({ id }) => void (sessionId = id != null ? id : ''));
 
   const removeNotification = () =>
     void setTimeout(() => void (showCopiedNotification = false), 450);
