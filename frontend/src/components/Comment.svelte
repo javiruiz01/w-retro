@@ -1,6 +1,5 @@
 <script>
   import { contextStore } from '../Stores/ContextMenuStore.js';
-  import { onMount } from 'svelte';
   import LikeIcon from './icons/Like.svelte';
   import OptionsIcon from './icons/Options.svelte';
 
@@ -69,7 +68,7 @@
   <button
     bind:this={optionsButton}
     on:click|preventDefault={openByOptions}
-    class="options absolute top-0 right-0 mt-2 mr-1 z-10">
+    class="options absolute top-0 right-0 mt-2 mr-1 z-10 w-3 h-3">
     <OptionsIcon />
   </button>
 </div>
