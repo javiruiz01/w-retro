@@ -60,7 +60,7 @@
     toggleMenu(true);
   }
 
-  function sortByLikes() {
+  function sortCommentsByLikes() {
     card = {
       ...card,
       comments: card.comments.sort(({ likes: a }, { likes: b }) =>
@@ -131,7 +131,7 @@
   class="contextmenu bg-white fixed hidden shadow-lg cursor-pointer rounded-tr-lg rounded-b-lg border-2 z-30">
   <ul tabindex="0">
     <li
-      on:click|preventDefault={sortByLikes}
+      on:click|preventDefault={sortCommentsByLikes}
       tabindex="0"
       class="p-4 rounded-tr-md hover:text-white bg-white hover:bg-gray-600 foucs:bg-green-600 focus:text-white">
       Sort comments by likes
